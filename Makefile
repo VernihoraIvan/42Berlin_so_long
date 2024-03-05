@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 16:25:21 by iverniho          #+#    #+#              #
-#    Updated: 2024/03/05 15:38:49 by iverniho         ###   ########.fr        #
+#    Updated: 2024/03/05 19:17:17 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,27 +16,32 @@ NAME = so_long.a
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC= so_long.c
+SRC = so_long.c
 
 LIB = libft/libft.a
 
-MLX_API = -lmlx -framework OpenGL -framework AppKit
-
 OBJ = $(SRC:.c=.o)
+
+MLX_LIB = mlx/
+
+# MLX_API = -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 
 all: $(NAME)
 
 # $(NAME): $(OBJ)
 # 	ar rc $(NAME) $(OBJ) -c $< -o $@
 
-$(NAME): $(OBJ) so_long.h
-	$(CC) $(CFLAGS) $(MLX_API) $(OBJ) $(LIB) -o $(NAME)
+# gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
 
 fclean: clean
-	rm -Rf $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
