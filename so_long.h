@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/06 18:01:44 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:43:21 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,22 @@
 # define WIDTH 32
 # define HEIGHT 32
 
-// # include <mlx.h>
 # include <stdio.h>
 #include <stdlib.h>
 # include "libft/libft.h"
 # include "mlx/mlx.h"
 
+typedef struct mlx_data
+{
+	void *mlx;
+	void *win_ptr;
+} mlx_data;
+
+typedef struct t_img
+{
+	void	*img;
+	int		height;
+	int		width;
+}	t_img;
 
 #endif
