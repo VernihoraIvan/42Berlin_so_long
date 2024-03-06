@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 16:25:21 by iverniho          #+#    #+#              #
-#    Updated: 2024/03/05 19:17:17 by iverniho         ###   ########.fr        #
+#    Updated: 2024/03/06 16:36:17 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,15 +24,9 @@ OBJ = $(SRC:.c=.o)
 
 MLX_LIB = mlx/
 
-# MLX_API = -lmlx -framework OpenGL -framework AppKit
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 
 all: $(NAME)
-
-# $(NAME): $(OBJ)
-# 	ar rc $(NAME) $(OBJ) -c $< -o $@
-
-# gcc main.c ... libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
