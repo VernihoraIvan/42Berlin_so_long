@@ -6,15 +6,15 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/06 19:00:00 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:04:57 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define WIDTH 132
-# define HEIGHT 132
+# define WIDTH 32
+# define HEIGHT 32
 
 # include <stdio.h>
 #include <stdlib.h>
@@ -33,12 +33,5 @@ typedef struct t_img
 	int		height;
 	int		width;
 }	t_img;
-
-typedef struct service_data
-{
-	void	*img;
-	int		height;
-	int		width;
-}	service_data;
 
 #endif

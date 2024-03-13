@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/06 19:19:21 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:27:34 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,20 @@ int on_keypress(int keysym, t_data *data)
 	return (0);
 }
 
-t_img	add_img(mlx_data data, char *path)
-	{
-		t_img render_img;
+t_img add_img(mlx_data data, char *path)
+{
+	t_img render_img;
 
-		render_img.img = mlx_xpm_file_to_image(data.mlx, path, &render_img.width, &render_img.height);
-		return (render_img);
-	}
+	render_img.img = mlx_xpm_file_to_image(data.mlx, path, &render_img.width, &render_img.height);
+	return (render_img);
+}
+
+
 
 int main(void)
 {
 	mlx_data data;
-	t_img img;
+	t_img img_data;
 
 	data.mlx = mlx_init();
 	if (!data.mlx)
@@ -60,10 +62,16 @@ int main(void)
 	if (!data.win)
 		return (free(data.mlx), 1);
 
-	img.height = HEIGHT;
-	img.width = WIDTH;
+	img_data.height = HEIGHT;
+	img_data.width = WIDTH;
 
-	img.img = mlx_xpm_file_to_image(data.mlx, "assets/wall.xpm", &img.width, &img.height);
+	img_data.img = mlx_xpm_file_to_image(data.mlx, "assets/wall.xpm", &img_data.width, &img_data.height);
+
+	int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
+
+	 mlx_put_image_to_window(data.mlx, data.win,img_data.img,0,0);
+	 mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH,HEIGHT);
+	 mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH*2,HEIGHT*2);
 
 
 
