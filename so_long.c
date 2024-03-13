@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/13 11:27:34 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:00:36 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,7 @@
 #include <X11/X.h>
 #include <X11/keysym.h>
 
-typedef struct s_data
-{
-	void *mlx;
-	void *win;
-} t_data;
-
-int on_destroy(t_data *data)
+int on_destroy(mlx_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
@@ -33,7 +27,7 @@ int on_destroy(t_data *data)
 	return (0);
 }
 
-int on_keypress(int keysym, t_data *data)
+int on_keypress(int keysym, mlx_data *data)
 {
 	(void)data;
 	printf("Pressed key: %d\\n", keysym);
@@ -48,6 +42,34 @@ t_img add_img(mlx_data data, char *path)
 	return (render_img);
 }
 
+void	mlx_render_img(mlx_data *mlx, t_img img, int x, int y)
+{
+	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, x, y);
+}
+
+// t_img render_map(char* file_path)
+// {
+// 	// Read the content of the file "map.ber" and process it
+// 	// ...
+
+// 	// Return the rendered image
+// 	t_img render_img;
+// 	// ...
+
+// 	return render_img;
+// }
+
+int	load_assets(mlx_data *mlx)
+{
+	mlx->assets->wall = add_img(*mlx, "../assets/wall.xpm");
+	mlx->assets->coin = add_img(*mlx, "../assets/coin.xpm");
+	mlx->assets->player = add_img(*mlx, "../assets/player.xpm");
+	mlx->assets->door_open = add_img(*mlx, "../assets/door_open.xpm");
+	mlx->assets->door_closed = add_img(*mlx, "../assets/door_closed.xpm");
+	// mlx->assets->coin_count = 0;
+	// mlx->assets->move_count = 0;
+	return (0);
+}
 
 
 int main(void)
@@ -67,11 +89,11 @@ int main(void)
 
 	img_data.img = mlx_xpm_file_to_image(data.mlx, "assets/wall.xpm", &img_data.width, &img_data.height);
 
-	int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
+	// int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
 
-	 mlx_put_image_to_window(data.mlx, data.win,img_data.img,0,0);
-	 mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH,HEIGHT);
-	 mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH*2,HEIGHT*2);
+	//  mlx_put_image_to_window(data.mlx, data.win,img_data.img,0,0);
+	//  mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH,HEIGHT);
+	//  mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH*2,HEIGHT*2);
 
 
 

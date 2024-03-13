@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/13 11:04:57 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:00:16 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@
 # include "libft/libft.h"
 # include "mlx/mlx.h"
 
-typedef struct mlx_data
-{
-	void *mlx;
-	void *win;
-} mlx_data;
+
 
 typedef struct t_img
 {
@@ -33,5 +29,25 @@ typedef struct t_img
 	int		height;
 	int		width;
 }	t_img;
+
+typedef struct t_relement
+{
+	t_img	wall;
+	t_img	coin;
+	t_img	player;
+	t_img	door_open;
+	t_img	door_closed;
+	int		map_height;
+	int		map_width;
+}	t_relement;
+
+typedef struct mlx_data
+{
+	void		*mlx;
+	void		*win;
+	t_relement	*assets;
+
+}	mlx_data;
+
 
 #endif
