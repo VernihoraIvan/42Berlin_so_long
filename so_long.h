@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/13 12:00:16 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:30:53 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ typedef struct t_relement
 	t_img	door_closed;
 	int		map_height;
 	int		map_width;
+	char	**map;
 }	t_relement;
 
-typedef struct mlx_data
+typedef struct t_mlx
 {
 	void		*mlx;
 	void		*win;
 	t_relement	*assets;
 
-}	mlx_data;
+}	t_mlx;
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/13 12:00:36 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:44:14 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <X11/X.h>
 #include <X11/keysym.h>
 
-int on_destroy(mlx_data *data)
+int on_destroy(t_mlx *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
@@ -27,14 +27,14 @@ int on_destroy(mlx_data *data)
 	return (0);
 }
 
-int on_keypress(int keysym, mlx_data *data)
+int on_keypress(int keysym, t_mlx *data)
 {
 	(void)data;
 	printf("Pressed key: %d\\n", keysym);
 	return (0);
 }
 
-t_img add_img(mlx_data data, char *path)
+t_img add_img(t_mlx data, char *path)
 {
 	t_img render_img;
 
@@ -42,9 +42,17 @@ t_img add_img(mlx_data data, char *path)
 	return (render_img);
 }
 
-void	mlx_render_img(mlx_data *mlx, t_img img, int x, int y)
+void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y)
 {
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, x, y);
+}
+
+t_img	put_img(t_mlx mlx, char *path)
+{
+	t_img	ig;
+
+	ig.img = mlx_xpm_file_to_image(mlx.mlx, path, &ig.width, &ig.height);
+	return (ig);
 }
 
 // t_img render_map(char* file_path)
@@ -59,7 +67,7 @@ void	mlx_render_img(mlx_data *mlx, t_img img, int x, int y)
 // 	return render_img;
 // }
 
-int	load_assets(mlx_data *mlx)
+int	load_img(t_mlx *mlx)
 {
 	mlx->assets->wall = add_img(*mlx, "../assets/wall.xpm");
 	mlx->assets->coin = add_img(*mlx, "../assets/coin.xpm");
@@ -71,29 +79,52 @@ int	load_assets(mlx_data *mlx)
 	return (0);
 }
 
+int	render_assets(t_mlx *mlx)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < mlx->assets->map_height)
+	{
+		j = 0;
+		while (j < mlx->assets->map_width)
+		{
+			if (mlx->assets->map[i][j] == '1')
+				mlx_render_img(mlx, mlx->assets->wall, j * 56, i * 56);
+			else if (mlx->assets->map[i][j] == 'C')
+				mlx_render_img(mlx, mlx->assets->coin, j * 56, i * 56);
+			else if (mlx->assets->map[i][j] == 'P')
+				mlx_render_img(mlx, mlx->assets->player, j * 56, i * 56);
+			else if (mlx->assets->map[i][j] == 'O')
+				mlx_render_img(mlx, mlx->assets->door_open, j * 56, i * 56);
+			else if (mlx->assets->map[i][j] == 'E')
+				mlx_render_img(mlx, mlx->assets->door_closed, j * 56, i * 56);
+			j++;
+		}
+	}
+	return (0);
+}
+
 
 int main(void)
 {
-	mlx_data data;
+	t_mlx data;
 	t_img img_data;
 
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		return (1);
-	data.win = mlx_new_window(data.mlx, 600, 400, "so_long");
+	data.win = mlx_new_window(data.mlx, data.assets->map_width,
+			56 * data.assets->map_height, "so_long");
 	if (!data.win)
 		return (free(data.mlx), 1);
 
 	img_data.height = HEIGHT;
 	img_data.width = WIDTH;
 
-	img_data.img = mlx_xpm_file_to_image(data.mlx, "assets/wall.xpm", &img_data.width, &img_data.height);
-
-	// int mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr, int x, int y);
-
-	//  mlx_put_image_to_window(data.mlx, data.win,img_data.img,0,0);
-	//  mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH,HEIGHT);
-	//  mlx_put_image_to_window(data.mlx, data.win,img_data.img,WIDTH*2,HEIGHT*2);
+	load_img(&data);
+	render_assets(&data);
 
 
 
