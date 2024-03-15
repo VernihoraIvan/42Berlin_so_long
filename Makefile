@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 16:25:21 by iverniho          #+#    #+#              #
-#    Updated: 2024/03/06 16:36:17 by iverniho         ###   ########.fr        #
+#    Updated: 2024/03/15 12:02:07 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = so_long.c
 
 LIB = libft/libft.a
+GNL = get_next_line/get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -29,7 +30,7 @@ MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) $(GNL) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)

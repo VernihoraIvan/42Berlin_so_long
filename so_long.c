@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/14 16:44:14 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:09:19 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,17 +106,161 @@ int	render_assets(t_mlx *mlx)
 	return (0);
 }
 
+void	*ft_realloc(void *ptr, size_t size)
+{
+	void	*new;
 
-int main(void)
+	new = malloc(size);
+	if (new == NULL)
+		return (NULL);
+	if (ptr)
+	{
+		ft_memcpy(new, ptr, size);
+		free(ptr);
+	}
+	return (new);
+}
+
+char	*ft_addchar(char *str, char c)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	if (str)
+		while (str[i])
+			i++;
+	new = malloc(sizeof(char) * (i + 2));
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			new[i] = str[i];
+			i++;
+		}
+	}
+	new[i] = c;
+	new[i + 1] = '\0';
+	free(str);
+	return (new);
+}
+
+// int	read_to_map(char *map, char ***mp)
+// {
+// 	int		fd;
+// 	char	tmp;
+// 	int		i;
+
+// 	fd = ((i = 0), open(map, O_RDONLY));
+// 	if (fd == -1)
+// 		return (0);
+// 	while (read(fd, &tmp, 1) > 0)
+// 	{
+// 		if (tmp == '\n')
+// 		{
+// 			i++;
+// 			*mp = (char **)ft_realloc(*mp, sizeof(char *) * (i + 1));
+// 			if (!*mp)
+// 				return (0);
+// 			(*mp)[i] = (char *)malloc(sizeof(char));
+// 			if (!(*mp)[i])
+// 				return (0);
+// 			(*mp)[i][0] = '\0';
+// 		}
+// 		else
+// 			(*mp)[i] = ft_addchar((*mp)[i], tmp);
+// 	}
+// 	i++;
+// 	return ((close(fd), i));
+// }
+
+// int	validate_map(char *map, t_mlx *mlx)
+// {
+// 	int		i, j;
+// 	char	**mp;
+
+// 	// if (!check_extention(map))
+// 	// 	return (0);
+// 	i = 0;
+// 	j = 0;
+// 	mp = (char **)malloc(sizeof(char *) * ft_strlen(mp[i]));
+// 	if (!mp)
+// 		return (0);
+// 	mp[i][j] = (char *)malloc(sizeof(char) * ft_strlen(mp[i]));
+// 	// if (!mp[i])
+// 	// 	return (free_map(mp, i), 0);
+// 	mp[i][0] = '\0';
+// 	i = read_to_map(map, &mp);
+// 	// if (i < 3)
+// 	// 	return (free_map(mp, i), 0);
+// 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
+// 	mlx->assets->map_height = i;
+// 	mlx->assets->map_width = ft_strlen(mp[0]);
+// 	// if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
+// 	// 	return (free_map(mp, i), 0);
+// 	// if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
+// 	// 	return (free_map(mp, i), 0);
+// 	mlx->assets->map = mp;
+// 	return (1);
+// }
+
+void	fill_map(t_relement *game, int lines, char *map)
+{
+	int	file;
+	int	i;
+
+	i = 0;
+	file = open(map, O_RDWR);
+	// game->moves = 0;
+	// game->player_position = 0;
+	game->map = malloc(sizeof(char *) * (lines + 1));
+	game->map[0] = get_next_line(file);
+	// while (i < lines)
+	// {
+	// 	i++;
+	// 	game->map[i] = get_next_line(file);
+	// }
+	// if (check_map(map, game) == 1)
+	// 	exit(EXIT_FAILURE);
+	// if (valid_path(game) == 1)
+	// {
+	// 	free_map(game);
+	// 	write(1, "Error\nNo valid path\n", 20);
+	// 	exit(EXIT_FAILURE);
+	// }
+	close(file);
+}
+
+int	count_lines(char *map)
+{
+	int		file;
+	int		lines;
+	// char	*line;
+
+	lines = 0;
+	file = open(map, O_RDONLY);
+	while (get_next_line(file))
+		lines++;
+	close(file);
+	return (lines);
+}
+
+
+
+int main(int ac, char **av)
 {
 	t_mlx data;
 	t_img img_data;
 
 	data.mlx = mlx_init();
+	if (ac != 2)
+		return (1);
 	if (!data.mlx)
 		return (1);
-	data.win = mlx_new_window(data.mlx, data.assets->map_width,
-			56 * data.assets->map_height, "so_long");
+	// if (!validate_map(av[1], &data))
+	// 	return (0);
+	data.win = mlx_new_window(data.mlx, 600, 600, "so_long");
 	if (!data.win)
 		return (free(data.mlx), 1);
 
@@ -124,7 +268,13 @@ int main(void)
 	img_data.width = WIDTH;
 
 	load_img(&data);
+	int lines = count_lines(av[1]);
+	fill_map(data.assets, lines, av[1]);
 	render_assets(&data);
+
+	printf("height: %d\n", data.assets->map_height);
+	printf("width: %d\n", data.assets->map_width);
+	printf("num: %s\n", *data.assets->map);
 
 
 

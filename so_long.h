@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/14 16:30:53 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:02:33 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 
 # include <stdio.h>
 #include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include "libft/libft.h"
 # include "mlx/mlx.h"
+# include "get_next_line/get_next_line.h"
 
 
 
