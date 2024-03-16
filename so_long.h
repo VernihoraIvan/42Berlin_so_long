@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/15 12:02:33 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:34:55 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 
 
 
+
+
+
+
 typedef struct t_img
 {
 	void	*img;
@@ -40,8 +44,11 @@ typedef struct t_relement
 	t_img	player;
 	t_img	door_open;
 	t_img	door_closed;
+	int		coin_count;
+	int		move_count;
 	int		map_height;
 	int		map_width;
+	int		test;
 	char	**map;
 }	t_relement;
 
@@ -49,8 +56,8 @@ typedef struct t_mlx
 {
 	void		*mlx;
 	void		*win;
+	int			test;
 	t_relement	*assets;
-
 }	t_mlx;
 
 
