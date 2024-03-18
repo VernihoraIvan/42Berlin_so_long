@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/16 17:35:15 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:26:50 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,14 +170,14 @@ int	render_assets(t_mlx *mlx)
 	int		j;
 
 	i = -1;
-	printf("map width: %d\n", mlx->assets->map_width);
-	printf("map height: %d\n", mlx->assets->map_height);
+	// printf("map width: %d\n", mlx->assets->map_width);
+	// printf("map height: %d\n", mlx->assets->map_height);
 	while (++i < mlx->assets->map_height)
 	{
 		j = 0;
 		while (j < mlx->assets->map_width)
 		{
-			printf("map: %c\n", mlx->assets->map[i][j]);
+			// printf("map: %c\n", mlx->assets->map[i][j]);
 			if (mlx->assets->map[i][j] == '1')
 				mlx_render_img(mlx, mlx->assets->wall, j * 56, i * 56);
 			else if (mlx->assets->map[i][j] == 'C')
@@ -205,11 +205,12 @@ void	fill_map(t_relement *game, int lines, char *map)
 	// game->player_position = 0;
 	game->map = malloc(sizeof(char *) * (size_t)(lines + 1));
 	game->map[0] = get_next_line(file);
+	game->map_width = ft_strlen(game->map[0]);
 	while (i < lines)
 	{
 		i++;
 		game->map[i] = get_next_line(file);
-		printf("map: %s\n", game->map[i]);
+		// printf("map: %s\n", game->map[i]);
 	}
 	// if (check_map(map, game) == 1)
 	// 	exit(EXIT_FAILURE);
@@ -260,13 +261,22 @@ int	load_img(t_mlx *mlx)
 
 
 //////////////////////////////////////////////////////////////////////
+int	check_extention(char *map)
+{
+	char	**s;
+	s = ft_split(map, '.');
+	if(ft_strncmp(s[1],"ber", 3) != 0)
+		return (0);
+	return(1);
+
+}
 int	validate_map(char *map, t_mlx *mlx)
 {
 	int		i;
 	char	**mp;
 
-	// if (!check_extention(map))
-	// 	return (0);
+	if (!check_extention(map))
+		return (0);
 	if (!map)
 		return (0);
 	i = 0;
@@ -282,7 +292,7 @@ int	validate_map(char *map, t_mlx *mlx)
 	// 	return (free_map(mp, i), 0);
 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
 	mlx->assets->map_height = 10;
-	mlx->assets->map_width = 36;
+	// mlx->assets->map_width = ft_strlen(mp[0]);
 	// if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
 	// 	return (free_map(mp, i), 0);
 	// if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
@@ -303,7 +313,7 @@ int main(int ac, char **av)
 		return (1);
 	if (!validate_map(av[1], &data))
 		return (0);
-	data.win = mlx_new_window(data.mlx, 1600, 1600, "so_long");
+	data.win = mlx_new_window(data.mlx, 1920, 1000, "so_long");
 	if (!data.win)
 		return (free(data.mlx), 1);
 	// img_data.height = HEIGHT;
@@ -312,16 +322,9 @@ int main(int ac, char **av)
 
 	int lines = count_lines(av[1]);
 	data.assets->map_height = lines;
-	printf("lines: %d\n", data.assets->map_height);
 	fill_map(data.assets, lines, av[1]);
 
 	render_assets(&data);
-
-	// printf("lines: %d\n", lines);
-
-	// printf("height: %d\n", data.assets->map_height);
-	// printf("width: %d\n", data.assets->map_width);
-	// printf("num: %s\n", *data.assets->map);
 
 
 
