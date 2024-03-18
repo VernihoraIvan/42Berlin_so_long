@@ -6,17 +6,11 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/18 16:26:50 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/18 18:37:49 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "so_long.h"
-
-#include "mlx/mlx.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
 
 // int on_destroy(t_mlx *data)
 // {
@@ -58,47 +52,6 @@
 // // 	return render_img;
 // // }
 
-
-
-// void	*ft_realloc(void *ptr, size_t size)
-// {
-// 	void	*new;
-
-// 	new = malloc(size);
-// 	if (new == NULL)
-// 		return (NULL);
-// 	if (ptr)
-// 	{
-// 		ft_memcpy(new, ptr, size);
-// 		free(ptr);
-// 	}
-// 	return (new);
-// }
-
-// char	*ft_addchar(char *str, char c)
-// {
-// 	char	*new;
-// 	int		i;
-
-// 	i = 0;
-// 	if (str)
-// 		while (str[i])
-// 			i++;
-// 	new = malloc(sizeof(char) * (i + 2));
-// 	i = 0;
-// 	if (str)
-// 	{
-// 		while (str[i])
-// 		{
-// 			new[i] = str[i];
-// 			i++;
-// 		}
-// 	}
-// 	new[i] = c;
-// 	new[i + 1] = '\0';
-// 	free(str);
-// 	return (new);
-// }
 
 // int	read_to_map(char *map, char ***mp)
 // {
@@ -159,59 +112,34 @@
 // 	return (1);
 // }
 
-void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y)
-{
-	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, x, y);
-}
 
-int	render_assets(t_mlx *mlx)
-{
-	int		i;
-	int		j;
 
-	i = -1;
-	// printf("map width: %d\n", mlx->assets->map_width);
-	// printf("map height: %d\n", mlx->assets->map_height);
-	while (++i < mlx->assets->map_height)
-	{
-		j = 0;
-		while (j < mlx->assets->map_width)
-		{
-			// printf("map: %c\n", mlx->assets->map[i][j]);
-			if (mlx->assets->map[i][j] == '1')
-				mlx_render_img(mlx, mlx->assets->wall, j * 56, i * 56);
-			else if (mlx->assets->map[i][j] == 'C')
-				mlx_render_img(mlx, mlx->assets->coin, j * 56, i * 56);
-			else if (mlx->assets->map[i][j] == 'P')
-				mlx_render_img(mlx, mlx->assets->player, j * 56, i * 56);
-			else if (mlx->assets->map[i][j] == 'O')
-				mlx_render_img(mlx, mlx->assets->door_open, j * 56, i * 56);
-			else if (mlx->assets->map[i][j] == 'E')
-				mlx_render_img(mlx, mlx->assets->door_closed, j * 56, i * 56);
-			j++;
-		}
-	}
-	return (0);
-}
 
-void	fill_map(t_relement *game, int lines, char *map)
+
+void	fill_map(t_relement *game, char *mp)
 {
 	int	file;
 	int	i;
+	int	lines;
 
+	lines = count_lines(mp);
 	i = 0;
-	file = open(map, O_RDWR);
-	// game->moves = 0;
+	file = open(mp, O_RDWR);
+	game->moves_count = 0;
 	// game->player_position = 0;
+	printf("map height: %d\n", game->map_height);
+
 	game->map = malloc(sizeof(char *) * (size_t)(lines + 1));
 	game->map[0] = get_next_line(file);
 	game->map_width = ft_strlen(game->map[0]);
-	while (i < lines)
+	game->map_height = lines;
+	printf("file: %d\n", file);
+	while (i < game->map_height)
 	{
 		i++;
 		game->map[i] = get_next_line(file);
-		// printf("map: %s\n", game->map[i]);
 	}
+
 	// if (check_map(map, game) == 1)
 	// 	exit(EXIT_FAILURE);
 	// if (valid_path(game) == 1)
@@ -223,53 +151,14 @@ void	fill_map(t_relement *game, int lines, char *map)
 	close(file);
 }
 
-int	count_lines(char *map)
-{
-	int		file;
-	int		lines;
-	// char	*line;
 
-	lines = 0;
-	file = open(map, O_RDONLY);
-	while (get_next_line(file))
-		lines++;
-	close(file);
-	return (lines);
-}
 
-t_img add_img(t_mlx data, char *path)
-{
-	t_img render_img;
-	render_img.width = 20;
-	render_img.height = 20;
 
-	render_img.img = mlx_xpm_file_to_image(data.mlx, path, &render_img.width, &render_img.height);
-	return (render_img);
-}
-
-int	load_img(t_mlx *mlx)
-{
-	mlx->assets->coin_count = 0;
-	mlx->assets->move_count = 0;
-	mlx->assets->wall = add_img(*mlx, "assets/wall.xpm");
-	mlx->assets->coin = add_img(*mlx, "assets/coin.xpm");
-	mlx->assets->player = add_img(*mlx, "assets/player.xpm");
-	mlx->assets->door_open = add_img(*mlx, "assets/door_open.xpm");
-	mlx->assets->door_closed = add_img(*mlx, "assets/door_closed.xpm");
-	return (0);
-}
 
 
 //////////////////////////////////////////////////////////////////////
-int	check_extention(char *map)
-{
-	char	**s;
-	s = ft_split(map, '.');
-	if(ft_strncmp(s[1],"ber", 3) != 0)
-		return (0);
-	return(1);
 
-}
+
 int	validate_map(char *map, t_mlx *mlx)
 {
 	int		i;
@@ -284,15 +173,19 @@ int	validate_map(char *map, t_mlx *mlx)
 	if (!mp)
 		return (0);
 	mp[i] = (char *)malloc(sizeof(char));
-	// if (!mp[i])
-	// 	return (free_map(mp, i), 0);
-	mp[i][0] = '\0';
+	if (!mp[i])
+		return (free_map(mp, i), 0);
+	// mp[i][0] = '\0';
 	// i = read_to_map(map, &mp);
 	// if (i < 3)
 	// 	return (free_map(mp, i), 0);
 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
-	mlx->assets->map_height = 10;
+	// mlx->assets->map_height = count_lines(map);
 	// mlx->assets->map_width = ft_strlen(mp[0]);
+
+	// printf("map width: %d\n", mlx->assets->map_width);
+	// printf("map height: %d\n", mlx->assets->map_height);
+	// printf("mp %zu", ft_strlen(mp[0]));
 	// if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
 	// 	return (free_map(mp, i), 0);
 	// if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
@@ -307,23 +200,25 @@ int main(int ac, char **av)
 	// t_img img_data;
 
 	data.mlx = mlx_init();
-	if (ac == 12 && av == NULL)
-		return (1);
+	if (ac != 2)
+		return (0);
 	if (!data.mlx)
-		return (1);
+		return (0);
 	if (!validate_map(av[1], &data))
 		return (0);
-	data.win = mlx_new_window(data.mlx, 1920, 1000, "so_long");
+	data.win = mlx_new_window(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "so_long");
 	if (!data.win)
 		return (free(data.mlx), 1);
 	// img_data.height = HEIGHT;
 	// img_data.width = WIDTH;
 	load_img(&data);
 
-	int lines = count_lines(av[1]);
-	data.assets->map_height = lines;
-	fill_map(data.assets, lines, av[1]);
+	// int lines = count_lines(av[1]);
+	// data.assets->map_height = count_lines(av[1]);
+	fill_map(data.assets, av[1]);
 
+	printf("map width: %d\n", data.assets->map_width);
+	printf("map height: %d\n", data.assets->map_height);
 	render_assets(&data);
 
 

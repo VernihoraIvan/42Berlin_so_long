@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 16:25:21 by iverniho          #+#    #+#              #
-#    Updated: 2024/03/16 15:26:56 by iverniho         ###   ########.fr        #
+#    Updated: 2024/03/18 18:18:32 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = so_long.a
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = so_long.c
+SRC = so_long.c utils.c
 
 LIB = libft/libft.a
 GNL := get_next_line/*c
