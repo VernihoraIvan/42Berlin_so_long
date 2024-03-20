@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/20 17:28:26 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:28:09 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,67 @@
 // 	exit(0);
 // 	return (0);
 // }
-
-void	run_player(t_mlx *mlx, int x, int y)
+void	check_next_move(t_mlx *data, int m)
 {
-	mlx->assets->map[y][x] = 'P';
+	(void)data;
+	// char	**temp;
+	// temp = data->assets->map;
+
+	// if (m == 119)
+	// {
+	// 	if (temp[data->assets->player_pos->y--][data->assets->player_pos->x] != '1')
+	// 	{
+	// 		data->assets->player_pos->y--;
+	// 		printf("y pos\n %d", data->assets->player_pos->y);
+
+	// 	}
+	// }
+	 if (m == 97)
+	{
+		printf("left\n");
+	}
+	else if (m == 115)
+	{
+		printf("down\n");
+	}
+	else if (m == 100)
+	{
+		printf("right\n");
+	}
+}
+void	run_player(t_mlx *mlx, int x)
+{
+	if (x == 119)
+		mlx->assets->player_pos->y -= 1;
+	else if (x == 97)
+		mlx->assets->player_pos->x -= 1;
+	else if (x == 115)
+		mlx->assets->player_pos->y += 1;
+	else if (x == 100)
+		mlx->assets->player_pos->x += 1;
+
 }
 
 int	on_keypress(int keycode, t_mlx *data)
 {
-	(void)data;
+	// (void)data;
+
 	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)
 	{
-		if (keycode == 119)
-			printf("w\n");
-		printf("keypress \n");
-		printf("Pressed key: %d\n", keycode);
+			if (keycode == 119)
+				run_player(data, 119);
+			else if (keycode == 97)
+				run_player(data, 97);
+			else if (keycode == 115)
+				run_player(data, 115);
+			else if (keycode == 100)
+				run_player(data, 100);
+			printf("y pos: %d\n", data->assets->player_pos->y);
+			printf("x pos: %d\n", data->assets->player_pos->x);
+
+
+		// printf("keypress \n");
+		// printf("Pressed key: %d\n", keycode);
 	}
 
 
@@ -118,18 +164,15 @@ void	determine_player_position(t_relement *game)
 		{
 			if (game->map[i][j] == 'P')
 			{
-				game->player_x = j;
-				game->player_y = i;
-				printf("player position: %d %d\n", game->player_x, game->player_y);
+				game->player_pos = malloc(sizeof(t_player_pos));
+				game->player_pos->x = j;
+				game->player_pos->y = i;
 				return;
 			}
-
 		}
 		j = 0;
 
 	}
-
-	// printf("palyer position: %c\n", game->map[1][1]);
 }
 
 void	fill_map(t_relement *game, char *mp)
@@ -142,10 +185,6 @@ void	fill_map(t_relement *game, char *mp)
 	i = 0;
 	file = open(mp, O_RDWR);
 	game->moves_count = 0;
-	// game->player_position = 0;
-
-	printf("map height: %d\n", game->map_height);
-
 	game->map = malloc(sizeof(char *) * (size_t)(lines + 1));
 	game->map[0] = get_next_line(file);
 	game->map_width = ft_strlen(game->map[0]);
@@ -237,6 +276,7 @@ int main(int ac, char **av)
 
 	printf("map width: %d\n", data.assets->map_width);
 	printf("map height: %d\n", data.assets->map_height);
+
 	render_assets(&data);
 
 

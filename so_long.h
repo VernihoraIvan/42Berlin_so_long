@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/20 17:23:49 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:16:10 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@
 # include "mlx/mlx.h"
 # include "get_next_line/get_next_line.h"
 
-
-
-
-
-
-
-
 typedef struct t_img
 {
 	void	*img;
@@ -44,23 +37,32 @@ typedef struct t_img
 	int		width;
 }	t_img;
 
+typedef struct t_player_pos
+{
+	int		x;
+	int		y;
+}	t_player_pos;
+
 typedef struct t_relement
 {
-	t_img	wall;
-	t_img	coin;
-	t_img	player;
-	t_img	door_open;
-	t_img	door_closed;
-	int		moves_count;
-	int		coin_count;
-	int		move_count;
-	int		map_height;
-	int		map_width;
-	int		test;
-	char	**map;
-	int		player_x;
-	int		player_y;
+	t_img			wall;
+	t_img			coin;
+	t_img			player;
+	t_img			door_open;
+	t_img			door_closed;
+	int				moves_count;
+	int				coin_count;
+	int				move_count;
+	int				map_height;
+	int				map_width;
+	int				test;
+	char			**map;
+	t_player_pos	*player_pos;
+
 }	t_relement;
+
+
+
 
 typedef struct t_mlx
 {
@@ -78,6 +80,8 @@ int		load_img(t_mlx *mlx);
 void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y);
 int		render_assets(t_mlx *mlx);
 int		on_keypress(int keycode, t_mlx *data);
+void	determine_player_position(t_relement *game);
+
 
 
 
