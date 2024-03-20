@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:36:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/18 18:36:59 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:36:13 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ int	load_img(t_mlx *mlx)
 {
 	mlx->assets->coin_count = 0;
 	mlx->assets->move_count = 0;
+	mlx->assets->floor = add_img(*mlx, "assets/bg.xpm");
 	mlx->assets->wall = add_img(*mlx, "assets/wall.xpm");
 	mlx->assets->coin = add_img(*mlx, "assets/coin.xpm");
 	mlx->assets->player = add_img(*mlx, "assets/player.xpm");
 	mlx->assets->door_open = add_img(*mlx, "assets/door_open.xpm");
 	mlx->assets->door_closed = add_img(*mlx, "assets/door_closed.xpm");
+
 	return (0);
 }
 
@@ -59,8 +61,8 @@ int	render_assets(t_mlx *mlx)
 				mlx_render_img(mlx, mlx->assets->coin, j * WIDTH, i * HEIGHT);
 			else if (mlx->assets->map[i][j] == 'P')
 				mlx_render_img(mlx, mlx->assets->player, j * WIDTH, i * HEIGHT);
-			else if (mlx->assets->map[i][j] == 'O')
-				mlx_render_img(mlx, mlx->assets->door_open, j * WIDTH, i * HEIGHT);
+			else if (mlx->assets->map[i][j] == '0')
+				mlx_render_img(mlx, mlx->assets->floor, j * WIDTH, i * HEIGHT);
 			else if (mlx->assets->map[i][j] == 'E')
 				mlx_render_img(mlx, mlx->assets->door_closed, j * WIDTH, i * HEIGHT);
 			j++;

@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/20 18:16:10 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:25:01 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct t_relement
 	t_img			player;
 	t_img			door_open;
 	t_img			door_closed;
+	t_img			floor;
 	int				moves_count;
 	int				coin_count;
 	int				move_count;
@@ -81,6 +82,7 @@ void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y);
 int		render_assets(t_mlx *mlx);
 int		on_keypress(int keycode, t_mlx *data);
 void	determine_player_position(t_relement *game);
+void	run_player(t_mlx *mlx, int x, int y);
 
 
 

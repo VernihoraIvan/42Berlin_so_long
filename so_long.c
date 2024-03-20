@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/20 18:28:09 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:32:58 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,72 +20,70 @@
 // 	exit(0);
 // 	return (0);
 // }
-void	check_next_move(t_mlx *data, int m)
-{
-	(void)data;
-	// char	**temp;
-	// temp = data->assets->map;
 
-	// if (m == 119)
+
+void	run_player(t_mlx *mlx, int x, int y)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < mlx->assets->map_height)
+	{
+		j = -1;
+		while (++j < mlx->assets->map_width)
+		{
+			if (mlx->assets->map[i][j] == 'P')
+			{
+				if (mlx->assets->map[i + y][j + x] == '1')
+					return;
+				if (mlx->assets->map[i + y][j + x] == 'C')
+				{
+					// mlx->assets->coin_count--;
+					mlx->assets->map[i + y][j + x] = '0';
+				}
+				// mlx->assets->player_pos->x += x;
+				// mlx->assets->player_pos->y += y;
+				mlx->assets->map[i][j] = '0';
+				mlx->assets->map[i + y][j + x] = 'P';
+				mlx->assets->map[i][j] = '0';
+				mlx->assets->moves_count++;
+				return;
+			}
+		}
+	}
+
+	// if (x == 119)
 	// {
-	// 	if (temp[data->assets->player_pos->y--][data->assets->player_pos->x] != '1')
-	// 	{
-	// 		data->assets->player_pos->y--;
-	// 		printf("y pos\n %d", data->assets->player_pos->y);
-
-	// 	}
+	// 	mlx->assets->player_pos->y -= 1;
+	// 	// mlx->assets->player_pos->y -= 1;
+	// 	// change_map_data(mlx, 119);
 	// }
-	 if (m == 97)
-	{
-		printf("left\n");
-	}
-	else if (m == 115)
-	{
-		printf("down\n");
-	}
-	else if (m == 100)
-	{
-		printf("right\n");
-	}
-}
-void	run_player(t_mlx *mlx, int x)
-{
-	if (x == 119)
-		mlx->assets->player_pos->y -= 1;
-	else if (x == 97)
-		mlx->assets->player_pos->x -= 1;
-	else if (x == 115)
-		mlx->assets->player_pos->y += 1;
-	else if (x == 100)
-		mlx->assets->player_pos->x += 1;
-
+	// else if (x == 97)
+	// 	mlx->assets->player_pos->x -= 1;
+	// else if (x == 115)
+	// 	mlx->assets->player_pos->y += 1;
+	// else if (x == 100)
+	// 	mlx->assets->player_pos->x += 1;
 }
 
 int	on_keypress(int keycode, t_mlx *data)
 {
-	// (void)data;
-
 	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)
 	{
 			if (keycode == 119)
-				run_player(data, 119);
+				run_player(data, 0, -1);
 			else if (keycode == 97)
-				run_player(data, 97);
+				run_player(data, -1, 0);
 			else if (keycode == 115)
-				run_player(data, 115);
+				run_player(data, 0, 1);
 			else if (keycode == 100)
-				run_player(data, 100);
+				run_player(data, 1, 0);
 			printf("y pos: %d\n", data->assets->player_pos->y);
 			printf("x pos: %d\n", data->assets->player_pos->x);
-
-
-		// printf("keypress \n");
-		// printf("Pressed key: %d\n", keycode);
 	}
+		render_assets(data);
 
-
-	// printf("keypress \n");
-	// printf("Pressed key: %d\\n", keycode);
 	return (0);
 }
 
@@ -189,7 +187,6 @@ void	fill_map(t_relement *game, char *mp)
 	game->map[0] = get_next_line(file);
 	game->map_width = ft_strlen(game->map[0]);
 	game->map_height = lines;
-	printf("file: %d\n", file);
 	while (i < game->map_height)
 	{
 		i++;
