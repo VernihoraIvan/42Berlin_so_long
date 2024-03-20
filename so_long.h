@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/18 18:37:17 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:23:49 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct t_relement
 	int		map_width;
 	int		test;
 	char	**map;
+	int		player_x;
+	int		player_y;
 }	t_relement;
 
 typedef struct t_mlx
@@ -75,6 +77,7 @@ t_img	add_img(t_mlx data, char *path);
 int		load_img(t_mlx *mlx);
 void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y);
 int		render_assets(t_mlx *mlx);
+int		on_keypress(int keycode, t_mlx *data);
 
 
 

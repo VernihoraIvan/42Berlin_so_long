@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/18 18:37:49 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:28:26 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,27 @@
 // 	return (0);
 // }
 
-// int on_keypress(int keysym, t_mlx *data)
-// {
-// 	(void)data;
-// 	printf("Pressed key: %d\\n", keysym);
-// 	return (0);
-// }
+void	run_player(t_mlx *mlx, int x, int y)
+{
+	mlx->assets->map[y][x] = 'P';
+}
+
+int	on_keypress(int keycode, t_mlx *data)
+{
+	(void)data;
+	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)
+	{
+		if (keycode == 119)
+			printf("w\n");
+		printf("keypress \n");
+		printf("Pressed key: %d\n", keycode);
+	}
 
 
-
-
-
-// t_img	put_img(t_mlx mlx, char *path)
-// {
-// 	t_img	ig;
-
-// 	ig.img = mlx_xpm_file_to_image(mlx.mlx, path, &ig.width, &ig.height);
-// 	return (ig);
-// }
-
-// // t_img render_map(char* file_path)
-// // {
-// // 	// Read the content of the file "map.ber" and process it
-// // 	// ...
-
-// // 	// Return the rendered image
-// // 	t_img render_img;
-// // 	// ...
-
-// // 	return render_img;
-// // }
+	// printf("keypress \n");
+	// printf("Pressed key: %d\\n", keycode);
+	return (0);
+}
 
 
 // int	read_to_map(char *map, char ***mp)
@@ -114,7 +105,32 @@
 
 
 
+void	determine_player_position(t_relement *game)
+{
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
+	while (++i < game->map_height)
+	{
+		while (++j < game->map_width)
+		{
+			if (game->map[i][j] == 'P')
+			{
+				game->player_x = j;
+				game->player_y = i;
+				printf("player position: %d %d\n", game->player_x, game->player_y);
+				return;
+			}
+
+		}
+		j = 0;
+
+	}
+
+	// printf("palyer position: %c\n", game->map[1][1]);
+}
 
 void	fill_map(t_relement *game, char *mp)
 {
@@ -127,6 +143,7 @@ void	fill_map(t_relement *game, char *mp)
 	file = open(mp, O_RDWR);
 	game->moves_count = 0;
 	// game->player_position = 0;
+
 	printf("map height: %d\n", game->map_height);
 
 	game->map = malloc(sizeof(char *) * (size_t)(lines + 1));
@@ -139,6 +156,7 @@ void	fill_map(t_relement *game, char *mp)
 		i++;
 		game->map[i] = get_next_line(file);
 	}
+	determine_player_position(game);
 
 	// if (check_map(map, game) == 1)
 	// 	exit(EXIT_FAILURE);
@@ -225,7 +243,7 @@ int main(int ac, char **av)
 
 
 	// Register key release hook
-	// mlx_hook(data.win, KeyRelease, KeyReleaseMask, &on_keypress, &data);
+	mlx_hook(data.win, KeyRelease, KeyReleaseMask, on_keypress, &data);
 
 	// Register destroy hook
 	// mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &on_destroy, &data);
