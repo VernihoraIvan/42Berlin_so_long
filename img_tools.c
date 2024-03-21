@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:36:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/21 16:47:52 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:10:57 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,10 @@ int	render_assets(t_mlx *mlx)
 				}
 				else if(mlx->assets->is_door_open == 1)
 				{
+					// mlx_destroy_image(mlx->mlx, mlx->assets->door_closed.img);
 					mlx_render_img(mlx, mlx->assets->door_open, j * WIDTH, i * HEIGHT);
 					printf("door open\n");
 				}
-
-
 			}
 			j++;
 		}

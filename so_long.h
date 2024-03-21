@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/21 16:56:05 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/21 19:15:17 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	determine_player_position(t_relement *game);
 void	run_player(t_mlx *mlx, int x, int y);
 void	check_win_condition(t_mlx *data);
 void	count_coins(t_relement *game);
+int		on_destroy(t_mlx *data);
 
 
 

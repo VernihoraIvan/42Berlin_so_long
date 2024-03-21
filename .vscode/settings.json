@@ -61,6 +61,7 @@
     "stdio.h": "c",
     "libft.h": "c",
     "mlx.h": "c",
-    "get_next_line.h": "c"
+    "get_next_line.h": "c",
+    "so_long.h": "c"
   }
 }
