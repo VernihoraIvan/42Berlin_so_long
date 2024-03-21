@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/20 19:25:01 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:56:05 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 
 # include <stdio.h>
-#include <stdlib.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include "libft/libft.h"
 # include "mlx/mlx.h"
 # include "get_next_line/get_next_line.h"
@@ -56,14 +56,11 @@ typedef struct t_relement
 	int				move_count;
 	int				map_height;
 	int				map_width;
-	int				test;
+	int				is_door_open;
 	char			**map;
 	t_player_pos	*player_pos;
 
 }	t_relement;
-
-
-
 
 typedef struct t_mlx
 {
@@ -73,6 +70,7 @@ typedef struct t_mlx
 	t_relement	*assets;
 }	t_mlx;
 
+void	fill_map(t_relement *game, char *mp);
 int		count_lines(char *map);
 int		check_extention(char *map);
 void	free_map(char **map, int i);
@@ -83,6 +81,8 @@ int		render_assets(t_mlx *mlx);
 int		on_keypress(int keycode, t_mlx *data);
 void	determine_player_position(t_relement *game);
 void	run_player(t_mlx *mlx, int x, int y);
+void	check_win_condition(t_mlx *data);
+void	count_coins(t_relement *game);
 
 
 

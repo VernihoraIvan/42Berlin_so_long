@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/21 16:19:15 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:58:25 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,29 @@ void	run_player(t_mlx *mlx, int x, int y)
 					return;
 				if (mlx->assets->map[i + y][j + x] == 'C')
 				{
-					// mlx->assets->coin_count--;
+					mlx->assets->coin_count--;
 					mlx->assets->map[i + y][j + x] = '0';
 				}
-				// mlx->assets->player_pos->x += x;
-				// mlx->assets->player_pos->y += y;
+				if (mlx->assets->is_door_open == 0 && mlx->assets->map[i + y][j + x] == 'E')
+					return;
 				mlx->assets->map[i][j] = '0';
 				mlx->assets->map[i + y][j + x] = 'P';
 				mlx->assets->map[i][j] = '0';
 				mlx->assets->moves_count++;
+				printf("moves count: %d\n", mlx->assets->moves_count);
 				return;
 			}
 		}
 	}
-
-	// if (x == 119)
-	// {
-	// 	mlx->assets->player_pos->y -= 1;
-	// 	// mlx->assets->player_pos->y -= 1;
-	// 	// change_map_data(mlx, 119);
-	// }
-	// else if (x == 97)
-	// 	mlx->assets->player_pos->x -= 1;
-	// else if (x == 115)
-	// 	mlx->assets->player_pos->y += 1;
-	// else if (x == 100)
-	// 	mlx->assets->player_pos->x += 1;
+}
+void	check_win_condition(t_mlx *data)
+{
+	printf("checking win condition\n");
+	printf("coin count: %d\n", data->assets->coin_count);
+	if (data->assets->coin_count == 0)
+		data->assets->is_door_open = 1;
+	else
+		return;
 }
 
 int	on_keypress(int keycode, t_mlx *data)
@@ -82,7 +79,8 @@ int	on_keypress(int keycode, t_mlx *data)
 			printf("y pos: %d\n", data->assets->player_pos->y);
 			printf("x pos: %d\n", data->assets->player_pos->x);
 	}
-		render_assets(data);
+	check_win_condition(data);
+	render_assets(data);
 
 	return (0);
 }
