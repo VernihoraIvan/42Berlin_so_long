@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/20 19:32:58 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:19:15 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,26 @@ void	determine_player_position(t_relement *game)
 	}
 }
 
+void	count_coins(t_relement *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+
+	while (++i < game->map_height)
+	{
+		j = 0;
+		while (++j < game->map_width)
+		{
+			if (game->map[i][j] == 'C')
+				game->coin_count++;
+		}
+
+	}
+
+}
+
 void	fill_map(t_relement *game, char *mp)
 {
 	int	file;
@@ -193,7 +213,8 @@ void	fill_map(t_relement *game, char *mp)
 		game->map[i] = get_next_line(file);
 	}
 	determine_player_position(game);
-
+	count_coins(game);
+	printf("coin count: %d\n", game->coin_count);
 	// if (check_map(map, game) == 1)
 	// 	exit(EXIT_FAILURE);
 	// if (valid_path(game) == 1)
