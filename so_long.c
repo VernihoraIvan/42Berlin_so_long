@@ -6,35 +6,33 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/21 19:16:26 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:08:26 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "so_long.h"
 
-// int	on_destroy(t_mlx *data)
-// {
-// 	mlx_destroy_window(data->mlx, data->win);
-// 	mlx_destroy_display(data->mlx);
-// 	free(data->mlx);
-// 	exit(0);
-// 	return(0);
-// }
-
 int on_destroy(t_mlx *data)
 {
+	mlx_destroy_image(data->mlx, data->assets->player.img);
+	mlx_destroy_image(data->mlx, data->assets->coin.img);
+	mlx_destroy_image(data->mlx, data->assets->wall.img);
+	mlx_destroy_image(data->mlx, data->assets->door_closed.img);
+	mlx_destroy_image(data->mlx, data->assets->door_open.img);
+	mlx_destroy_image(data->mlx, data->assets->floor.img);
 	mlx_destroy_window(data->mlx, data->win);
 	while (data->assets->map_height--)
 		free(data->assets->map[data->assets->map_height]);
-	mlx_destroy_display(data->mlx);
+	// mlx_destroy_display(data->mlx);
 	free(data->assets->map);
-	free(data->assets->wall.img);
-	free(data->assets->coin.img);
-	free(data->assets->player.img);
-	free(data->assets->door_closed.img);
-	free(data->assets->door_open.img);
+	// free(data->assets->wall.img);
+	// free(data->assets->coin.img);
+	// free(data->assets->player.img);
+	// free(data->assets->door_closed.img);
+	// free(data->assets->door_open.img);
+	// free(data->assets->floor.img);
+	free(data->assets->player_pos);
 	free(data->assets);
-	free(data->mlx);
 	free(data->mlx);
 	exit(0);
 	return (0);
@@ -178,39 +176,80 @@ void	fill_map(t_relement *game, char *mp)
 	close(file);
 }
 
+// int	validate_map(char *map, t_mlx *mlx)
+// {
+// 	int		i;
+// 	char	**mp;
+
+// 	if (!check_extention(map))
+// 		return (0);
+// 	if (!map)
+// 		return (0);
+// 	i = 0;
+// 	mp = (char **)malloc(sizeof(char *));
+// 	if (!mp)
+// 		return (0);
+// 	mp[i] = (char *)malloc(sizeof(char));
+// 	if (!mp[i])
+// 		return (free_map(mp, i), 0);
+// 	// mp[i][0] = '\0';
+// 	// i = read_to_map(map, &mp);
+// 	// if (i < 3)
+// 	// 	return (free_map(mp, i), 0);
+// 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
+// 	// mlx->assets->map_height = count_lines(map);
+// 	// mlx->assets->map_width = ft_strlen(mp[0]);
+
+// 	// printf("map width: %d\n", mlx->assets->map_width);
+// 	// printf("map height: %d\n", mlx->assets->map_height);
+// 	// printf("mp %zu", ft_strlen(mp[0]));
+// 	// if (mlx->assets->map_width < 3 )
+// 	// 	return (free_map(mp, i), 0);
+// 	// if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
+// 	// 	return (free_map(mp, i), 0);
+// 	// if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
+// 	// 	return (free_map(mp, i), 0);
+// 	// mlx->assets->map = mp;
+// 	free_map(mp, i);
+// 	return (1);
+// }
+
 int	validate_map(char *map, t_mlx *mlx)
 {
-	int		i;
-	char	**mp;
+	// int		i;
+	// char	**mp;
 
 	if (!check_extention(map))
 		return (0);
 	if (!map)
 		return (0);
-	i = 0;
-	mp = (char **)malloc(sizeof(char *));
-	if (!mp)
-		return (0);
-	mp[i] = (char *)malloc(sizeof(char));
-	if (!mp[i])
-		return (free_map(mp, i), 0);
+	// i = 0;
+	// mp = (char **)malloc(sizeof(char *));
+	// if (!mp)
+	// 	return (0);
+	// mp[i] = (char *)malloc(sizeof(char));
+	// if (!mp[i])
+	// 	return (free_map(mp, i), 0);
 	// mp[i][0] = '\0';
 	// i = read_to_map(map, &mp);
 	// if (i < 3)
 	// 	return (free_map(mp, i), 0);
 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
+	mlx->assets->is_door_open = 0;
 	// mlx->assets->map_height = count_lines(map);
 	// mlx->assets->map_width = ft_strlen(mp[0]);
 
 	// printf("map width: %d\n", mlx->assets->map_width);
 	// printf("map height: %d\n", mlx->assets->map_height);
 	// printf("mp %zu", ft_strlen(mp[0]));
-
+	// if (mlx->assets->map_width < 3 )
+	// 	return (free_map(mp, i), 0);
 	// if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
 	// 	return (free_map(mp, i), 0);
 	// if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
 	// 	return (free_map(mp, i), 0);
 	// mlx->assets->map = mp;
+	// free_map(mp, i);
 	return (1);
 }
 //////////////////////////////////////////////////////////////////
@@ -229,11 +268,9 @@ int main(int ac, char **av)
 	data.win = mlx_new_window(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "so_long");
 	if (!data.win)
 		return (free(data.mlx), 1);
+
 	load_img(&data);
 	fill_map(data.assets, av[1]);
-
-	printf("map width: %d\n", data.assets->map_width);
-	printf("map height: %d\n", data.assets->map_height);
 	render_assets(&data);
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, on_keypress, &data);
 	// Register destroy hook

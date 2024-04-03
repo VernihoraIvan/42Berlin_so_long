@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/21 19:15:17 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:58:06 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct t_relement
 	t_img			floor;
 	int				moves_count;
 	int				coin_count;
-	int				move_count;
+	// int				move_count;
 	int				map_height;
 	int				map_width;
 	int				is_door_open;
@@ -66,7 +66,6 @@ typedef struct t_mlx
 {
 	void		*mlx;
 	void		*win;
-	int			test;
 	t_relement	*assets;
 }	t_mlx;
 

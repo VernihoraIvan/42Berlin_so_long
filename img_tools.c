@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:36:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/21 19:10:57 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:20:21 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_img add_img(t_mlx data, char *path)
 int	load_img(t_mlx *mlx)
 {
 	mlx->assets->coin_count = 0;
-	mlx->assets->move_count = 0;
+	mlx->assets->moves_count = 0;
 	mlx->assets->floor = add_img(*mlx, "assets/bg.xpm");
 	mlx->assets->wall = add_img(*mlx, "assets/wall.xpm");
 	mlx->assets->coin = add_img(*mlx, "assets/coin.xpm");
@@ -47,8 +47,6 @@ int	render_assets(t_mlx *mlx)
 	int		j;
 
 	i = -1;
-	// printf("map width: %d\n", mlx->assets->map_width);
-	// printf("map height: %d\n", mlx->assets->map_height);
 	while (++i < mlx->assets->map_height)
 	{
 		j = 0;
@@ -65,12 +63,13 @@ int	render_assets(t_mlx *mlx)
 				mlx_render_img(mlx, mlx->assets->floor, j * WIDTH, i * HEIGHT);
 			else if (mlx->assets->map[i][j] == 'E')
 			{
-				if(mlx->assets->is_door_open == 0)
+				printf("test\n");
+				if(!mlx->assets->is_door_open)
 				{
 					mlx_render_img(mlx, mlx->assets->door_closed, j * WIDTH, i * HEIGHT);
 					printf("door closed\n");
 				}
-				else if(mlx->assets->is_door_open == 1)
+				else if(mlx->assets->is_door_open)
 				{
 					// mlx_destroy_image(mlx->mlx, mlx->assets->door_closed.img);
 					mlx_render_img(mlx, mlx->assets->door_open, j * WIDTH, i * HEIGHT);
