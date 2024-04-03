@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 16:58:52 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:09:39 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,23 @@ void	free_map(char **map, int i)
 	while (j++ < i)
 		free(map[j]);
 	free(map);
+}
+
+int	check_borders(char **map, t_relement *assets)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	j = 0;
+	// printf("diff %d\n", ft_strncmp(map[0], map[assets->map_height - 1], assets->map_width));
+	if (ft_strncmp(map[0], map[assets->map_height - 1], assets->map_width) != 0)
+		return (0);
+	while (i < assets->map_height)
+	{
+		if (map[i][j] != map[i][assets->map_width - 2])
+			return (0);
+		i++;
+	}
+	return (1);
 }

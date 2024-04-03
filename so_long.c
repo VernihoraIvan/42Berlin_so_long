@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 17:25:20 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:03:29 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	run_player(t_mlx *mlx, int x, int y)
 				mlx->assets->map[i + y][j + x] = 'P';
 				mlx->assets->map[i][j] = '0';
 				mlx->assets->moves_count++;
-				printf("moves count: %d\n", mlx->assets->moves_count);
 				return;
 			}
 		}
@@ -118,7 +117,6 @@ void	determine_player_position(t_relement *game)
 				game->player_pos = malloc(sizeof(t_player_pos));
 				game->player_pos->x = j;
 				game->player_pos->y = i;
-				printf("player pos: %d %d\n", j, i);
 				return;
 			}
 		}
@@ -147,7 +145,7 @@ void	count_coins(t_relement *game)
 
 }
 
-void	fill_map(t_relement *game, char *mp)
+void	fill_map(t_mlx *data, char *mp)
 {
 	int	file;
 	int	i;
@@ -156,24 +154,30 @@ void	fill_map(t_relement *game, char *mp)
 	lines = count_lines(mp);
 	i = 0;
 	file = open(mp, O_RDWR);
-	game->moves_count = 0;
-	game->map = malloc(sizeof(char *) * (size_t)(lines + 1));
-	game->map[0] = get_next_line(file);
-	game->map_width = ft_strlen(game->map[0]);
-	game->map_height = lines;
-	while (i < game->map_height)
+	data->assets->moves_count = 0;
+	data->assets->map = malloc(sizeof(char *) * (size_t)(lines + 1));
+	data->assets->map[0] = get_next_line(file);
+	data->assets->map_width = ft_strlen(data->assets->map[0]);
+	data->assets->map_height = lines;
+	while (i < data->assets->map_height)
 	{
 		i++;
-		game->map[i] = get_next_line(file);
+		data->assets->map[i] = get_next_line(file);
 	}
-	determine_player_position(game);
-	count_coins(game);
-	printf("coin count: %d\n", game->coin_count);
-	// if (check_map(map, game) == 1)
+	determine_player_position(data->assets);
+	count_coins(data->assets);
+	if (check_borders(data->assets->map, data->assets) == 0)
+	{
+		free_map(data->assets->map, i);
+		write(1, "Error\nInvalid map\n", 18);
+		on_destroy(data);
+		exit(EXIT_FAILURE);
+	}
+	// if (check_map(map, data->assets) == 1)
 	// 	exit(EXIT_FAILURE);
-	// if (valid_path(game) == 1)
+	// if (valid_path(data->assets) == 1)
 	// {
-	// 	free_map(game);
+	// 	free_map(data->assets);
 	// 	write(1, "Error\nNo valid path\n", 20);
 	// 	exit(EXIT_FAILURE);
 	// }
@@ -274,7 +278,7 @@ int main(int ac, char **av)
 		return (free(data.mlx), 1);
 
 	load_img(&data);
-	fill_map(data.assets, av[1]);
+	fill_map(&data, av[1]);
 	render_assets(&data);
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, on_keypress, &data);
 	// Register destroy hook

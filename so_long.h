@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 14:58:06 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:02:14 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct t_mlx
 	t_relement	*assets;
 }	t_mlx;
 
-void	fill_map(t_relement *game, char *mp);
+void	fill_map(t_mlx *data, char *mp);
 int		count_lines(char *map);
 int		check_extention(char *map);
 void	free_map(char **map, int i);
@@ -83,6 +83,7 @@ void	run_player(t_mlx *mlx, int x, int y);
 void	check_win_condition(t_mlx *data);
 void	count_coins(t_relement *game);
 int		on_destroy(t_mlx *data);
+int		check_borders(char **map, t_relement *assets);
 
 
 
