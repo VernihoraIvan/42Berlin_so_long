@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 15:08:26 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:25:20 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int on_destroy(t_mlx *data)
 	mlx_destroy_window(data->mlx, data->win);
 	while (data->assets->map_height--)
 		free(data->assets->map[data->assets->map_height]);
-	// mlx_destroy_display(data->mlx);
+	mlx_destroy_display(data->mlx);
 	free(data->assets->map);
 	// free(data->assets->wall.img);
 	// free(data->assets->coin.img);
@@ -61,6 +61,8 @@ void	run_player(t_mlx *mlx, int x, int y)
 				}
 				if (mlx->assets->is_door_open == 0 && mlx->assets->map[i + y][j + x] == 'E')
 					return;
+				if (mlx->assets->is_door_open == 1 && mlx->assets->map[i + y][j + x] == 'E')
+					on_destroy(mlx);
 				mlx->assets->map[i + y][j + x] = 'P';
 				mlx->assets->map[i][j] = '0';
 				mlx->assets->moves_count++;
@@ -72,7 +74,6 @@ void	run_player(t_mlx *mlx, int x, int y)
 }
 void	check_win_condition(t_mlx *data)
 {
-	printf("coin count: %d\n", data->assets->coin_count);
 	if (data->assets->coin_count == 0)
 		data->assets->is_door_open = 1;
 	else
@@ -81,6 +82,7 @@ void	check_win_condition(t_mlx *data)
 
 int	on_keypress(int keycode, t_mlx *data)
 {
+
 	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)
 	{
 		if (keycode == 119)
@@ -95,6 +97,7 @@ int	on_keypress(int keycode, t_mlx *data)
 	if(keycode == 65307)
 		on_destroy(data);
 	check_win_condition(data);
+	determine_player_position(data->assets);
 	render_assets(data);
 	return (0);
 }
@@ -115,6 +118,7 @@ void	determine_player_position(t_relement *game)
 				game->player_pos = malloc(sizeof(t_player_pos));
 				game->player_pos->x = j;
 				game->player_pos->y = i;
+				printf("player pos: %d %d\n", j, i);
 				return;
 			}
 		}

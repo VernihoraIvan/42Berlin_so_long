@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/03/18 18:20:11 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:58:52 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ int	check_extention(char *map)
 	char	**s;
 	s = ft_split(map, '.');
 	if(ft_strncmp(s[1],"ber", 3) != 0)
-		return (0);
+	{
+		free(s);
+		return(0);
+	}
+	free(s);
 	return(1);
-
 }
 
 void	free_map(char **map, int i)
