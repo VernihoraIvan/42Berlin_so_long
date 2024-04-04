@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 18:09:39 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:57:05 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,47 @@ int	count_lines(char *map)
 {
 	int		file;
 	int		lines;
+	char	*temp;
+
+
 	// char	*line;
 
 	lines = 0;
 	file = open(map, O_RDONLY);
-	while (get_next_line(file))
+	temp = get_next_line(file);
+	while (temp)
+	{
 		lines++;
+		free(temp);
+		temp = get_next_line(file);
+	}
 	close(file);
 	return (lines);
 }
 
 int	check_extention(char *map)
 {
-	char	**s;
-	s = ft_split(map, '.');
-	if(ft_strncmp(s[1],"ber", 3) != 0)
+	printf("1\n");
+	int	len;
+	int	i;
+	char	*ber;
+
+	i = 3;
+	ber = "ber";
+
+	len = ft_strlen(map);
+	while (len >= 0 && i >= 0 && map[len] == ber[i])
 	{
-		free(s);
-		return(0);
+		printf("2\n");
+
+		len--;
+		i--;
 	}
-	free(s);
-	return(1);
+	printf("3\n");
+
+	if (i == -1)
+		return (1);
+	return (0);
 }
 
 void	free_map(char **map, int i)

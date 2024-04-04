@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:36:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/04 11:47:57 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:31:13 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	load_img(t_mlx *mlx)
 
 void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y)
 {
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets->floor.img, x, y);
+	// mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets->floor.img, x, y);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, x, y);
 }
 

@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 19:23:47 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:03:43 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	determine_player_position(t_relement *game)
 		{
 			if (game->map[i][j] == 'P')
 			{
+				if (game->player_pos)
+					free(game->player_pos);
 				game->player_pos = malloc(sizeof(t_player_pos));
 				game->player_pos->x = j;
 				game->player_pos->y = i;
@@ -222,6 +224,7 @@ int	validate_map(char *map, t_mlx *mlx)
 		return (0);
 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
 	mlx->assets->is_door_open = 0;
+	mlx->assets->player_pos = NULL;
 	return (1);
 }
 //////////////////////////////////////////////////////////////////
