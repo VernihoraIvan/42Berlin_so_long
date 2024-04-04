@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 18:03:29 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:23:47 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void	determine_player_position(t_relement *game)
 			}
 		}
 		j = 0;
-
 	}
 }
 
@@ -173,14 +172,6 @@ void	fill_map(t_mlx *data, char *mp)
 		on_destroy(data);
 		exit(EXIT_FAILURE);
 	}
-	// if (check_map(map, data->assets) == 1)
-	// 	exit(EXIT_FAILURE);
-	// if (valid_path(data->assets) == 1)
-	// {
-	// 	free_map(data->assets);
-	// 	write(1, "Error\nNo valid path\n", 20);
-	// 	exit(EXIT_FAILURE);
-	// }
 	close(file);
 }
 
@@ -224,47 +215,19 @@ void	fill_map(t_mlx *data, char *mp)
 
 int	validate_map(char *map, t_mlx *mlx)
 {
-	// int		i;
-	// char	**mp;
 
 	if (!check_extention(map))
 		return (0);
 	if (!map)
 		return (0);
-	// i = 0;
-	// mp = (char **)malloc(sizeof(char *));
-	// if (!mp)
-	// 	return (0);
-	// mp[i] = (char *)malloc(sizeof(char));
-	// if (!mp[i])
-	// 	return (free_map(mp, i), 0);
-	// mp[i][0] = '\0';
-	// i = read_to_map(map, &mp);
-	// if (i < 3)
-	// 	return (free_map(mp, i), 0);
 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
 	mlx->assets->is_door_open = 0;
-	// mlx->assets->map_height = count_lines(map);
-	// mlx->assets->map_width = ft_strlen(mp[0]);
-
-	// printf("map width: %d\n", mlx->assets->map_width);
-	// printf("map height: %d\n", mlx->assets->map_height);
-	// printf("mp %zu", ft_strlen(mp[0]));
-	// if (mlx->assets->map_width < 3 )
-	// 	return (free_map(mp, i), 0);
-	// if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
-	// 	return (free_map(mp, i), 0);
-	// if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
-	// 	return (free_map(mp, i), 0);
-	// mlx->assets->map = mp;
-	// free_map(mp, i);
 	return (1);
 }
 //////////////////////////////////////////////////////////////////
 int main(int ac, char **av)
 {
 	t_mlx data;
-	// t_img img_data;
 
 	data.mlx = mlx_init();
 	if (ac != 2)

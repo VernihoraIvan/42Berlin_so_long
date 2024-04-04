@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:36:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/03 17:56:26 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/04 11:47:57 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ int	load_img(t_mlx *mlx)
 	mlx->assets->coin_count = 0;
 	mlx->assets->moves_count = 0;
 	mlx->assets->floor = add_img(*mlx, "assets/bg.xpm");
-	mlx->assets->wall = add_img(*mlx, "assets/wall.xpm");
-	mlx->assets->coin = add_img(*mlx, "assets/coin.xpm");
-	mlx->assets->player = add_img(*mlx, "assets/player.xpm");
-	mlx->assets->door_open = add_img(*mlx, "assets/door_open.xpm");
-	mlx->assets->door_closed = add_img(*mlx, "assets/door_closed.xpm");
+	mlx->assets->wall = add_img(*mlx, "assets/mountain.xpm");
+	mlx->assets->coin = add_img(*mlx, "assets/ring_bg.xpm");
+	mlx->assets->player = add_img(*mlx, "assets/frodo_bg.xpm");
+	mlx->assets->door_open = add_img(*mlx, "assets/door_open_bg.xpm");
+	mlx->assets->door_closed = add_img(*mlx, "assets/door_cl_bg.xpm");
 
 	return (0);
 }
 
 void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y)
 {
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets->floor.img, x, y);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, x, y);
 }
 
@@ -53,6 +54,7 @@ int	render_assets(t_mlx *mlx)
 		while (j < mlx->assets->map_width)
 		{
 			// printf("map: %c\n", mlx->assets->map[i][j]);
+
 			if (mlx->assets->map[i][j] == '1')
 				mlx_render_img(mlx, mlx->assets->wall, j * WIDTH, i * HEIGHT);
 			else if (mlx->assets->map[i][j] == 'C')
