@@ -6,19 +6,20 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:36:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/04 12:31:13 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:13:23 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "so_long.h"
+#include "so_long.h"
 
-t_img add_img(t_mlx data, char *path)
+t_img	add_img(t_mlx data, char *path)
 {
-	t_img render_img;
+	t_img	render_img;
+
 	render_img.width = WIDTH;
 	render_img.height = HEIGHT;
-
-	render_img.img = mlx_xpm_file_to_image(data.mlx, path, &render_img.width, &render_img.height);
+	render_img.img = mlx_xpm_file_to_image(data.mlx, path, \
+		&render_img.width, &render_img.height);
 	return (render_img);
 }
 
@@ -32,13 +33,11 @@ int	load_img(t_mlx *mlx)
 	mlx->assets->player = add_img(*mlx, "assets/frodo_bg.xpm");
 	mlx->assets->door_open = add_img(*mlx, "assets/door_open_bg.xpm");
 	mlx->assets->door_closed = add_img(*mlx, "assets/door_cl_bg.xpm");
-
 	return (0);
 }
 
 void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y)
 {
-	// mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->assets->floor.img, x, y);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, x, y);
 }
 
@@ -53,8 +52,6 @@ int	render_assets(t_mlx *mlx)
 		j = 0;
 		while (j < mlx->assets->map_width)
 		{
-			// printf("map: %c\n", mlx->assets->map[i][j]);
-
 			if (mlx->assets->map[i][j] == '1')
 				mlx_render_img(mlx, mlx->assets->wall, j * WIDTH, i * HEIGHT);
 			else if (mlx->assets->map[i][j] == 'C')
@@ -65,14 +62,15 @@ int	render_assets(t_mlx *mlx)
 				mlx_render_img(mlx, mlx->assets->floor, j * WIDTH, i * HEIGHT);
 			else if (mlx->assets->map[i][j] == 'E')
 			{
-				if(!mlx->assets->is_door_open)
+				if (!mlx->assets->is_door_open)
 				{
-					mlx_render_img(mlx, mlx->assets->door_closed, j * WIDTH, i * HEIGHT);
+					mlx_render_img(mlx, mlx->assets->door_closed, \
+						j * WIDTH, i * HEIGHT);
 				}
-				else if(mlx->assets->is_door_open)
+				else if (mlx->assets->is_door_open)
 				{
-					// mlx_destroy_image(mlx->mlx, mlx->assets->door_closed.img);
-					mlx_render_img(mlx, mlx->assets->door_open, j * WIDTH, i * HEIGHT);
+					mlx_render_img(mlx, mlx->assets->door_open, \
+						j * WIDTH, i * HEIGHT);
 				}
 			}
 			j++;

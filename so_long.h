@@ -6,19 +6,17 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 13:07:36 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:20:14 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1000
 # define WIDTH 56
 # define HEIGHT 56
-
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -53,7 +51,6 @@ typedef struct t_relement
 	t_img			floor;
 	int				moves_count;
 	int				coin_count;
-	// int				move_count;
 	int				map_height;
 	int				map_width;
 	int				is_door_open;
@@ -85,10 +82,4 @@ void	count_coins(t_relement *game);
 int		on_destroy(t_mlx *data);
 int		check_borders(char **map, t_relement *assets);
 int		check_elements(t_mlx *mlx, char **map);
-
-
-
-
-
-
 #endif

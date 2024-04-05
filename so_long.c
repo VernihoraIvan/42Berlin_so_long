@@ -6,13 +6,13 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 13:47:46 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:27:02 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "so_long.h"
+#include "so_long.h"
 
-int on_destroy(t_mlx *data)
+int	on_destroy(t_mlx *data)
 {
 	mlx_destroy_image(data->mlx, data->assets->player.img);
 	mlx_destroy_image(data->mlx, data->assets->coin.img);
@@ -25,19 +25,12 @@ int on_destroy(t_mlx *data)
 		free(data->assets->map[data->assets->map_height]);
 	mlx_destroy_display(data->mlx);
 	free(data->assets->map);
-	// free(data->assets->wall.img);
-	// free(data->assets->coin.img);
-	// free(data->assets->player.img);
-	// free(data->assets->door_closed.img);
-	// free(data->assets->door_open.img);
-	// free(data->assets->floor.img);
 	free(data->assets->player_pos);
 	free(data->assets);
 	free(data->mlx);
 	exit(0);
 	return (0);
 }
-
 
 void	run_player(t_mlx *mlx, int x, int y)
 {
@@ -53,30 +46,33 @@ void	run_player(t_mlx *mlx, int x, int y)
 			if (mlx->assets->map[i][j] == 'P')
 			{
 				if (mlx->assets->map[i + y][j + x] == '1')
-					return;
+					return ;
 				if (mlx->assets->map[i + y][j + x] == 'C')
 				{
 					mlx->assets->coin_count--;
 					mlx->assets->map[i + y][j + x] = '0';
 				}
-				if (mlx->assets->is_door_open == 0 && mlx->assets->map[i + y][j + x] == 'E')
-					return;
-				if (mlx->assets->is_door_open == 1 && mlx->assets->map[i + y][j + x] == 'E')
+				if (mlx->assets->is_door_open == 0 && \
+					mlx->assets->map[i + y][j + x] == 'E')
+					return ;
+				if (mlx->assets->is_door_open == 1 && \
+					mlx->assets->map[i + y][j + x] == 'E')
 					on_destroy(mlx);
 				mlx->assets->map[i + y][j + x] = 'P';
 				mlx->assets->map[i][j] = '0';
 				mlx->assets->moves_count++;
-				return;
+				return ;
 			}
 		}
 	}
 }
+
 void	check_win_condition(t_mlx *data)
 {
 	if (data->assets->coin_count == 0)
 		data->assets->is_door_open = 1;
 	else
-		return;
+		return ;
 }
 
 int	on_keypress(int keycode, t_mlx *data)
@@ -92,7 +88,7 @@ int	on_keypress(int keycode, t_mlx *data)
 		else if (keycode == 100)
 			run_player(data, 1, 0);
 	}
-	if(keycode == 65307)
+	if (keycode == 65307)
 		on_destroy(data);
 	check_win_condition(data);
 	determine_player_position(data->assets);
@@ -116,9 +112,11 @@ void	determine_player_position(t_relement *game)
 				if (game->player_pos)
 					free(game->player_pos);
 				game->player_pos = malloc(sizeof(t_player_pos));
+				if (!game->player_pos)
+					return ;
 				game->player_pos->x = j;
 				game->player_pos->y = i;
-				return;
+				return ;
 			}
 		}
 		j = 0;
@@ -131,7 +129,6 @@ void	count_coins(t_relement *game)
 	int	j;
 
 	i = 0;
-
 	while (++i < game->map_height)
 	{
 		j = 0;
@@ -140,9 +137,7 @@ void	count_coins(t_relement *game)
 			if (game->map[i][j] == 'C')
 				game->coin_count++;
 		}
-
 	}
-
 }
 
 void	fill_map(t_mlx *data, char *mp)
@@ -166,7 +161,8 @@ void	fill_map(t_mlx *data, char *mp)
 	}
 	determine_player_position(data->assets);
 	count_coins(data->assets);
-	if (check_borders(data->assets->map, data->assets) == 0 || check_elements(data, data->assets->map) == 0)
+	if (!data->assets->map || check_borders(data->assets->map, data->assets) == 0 \
+		|| check_elements(data, data->assets->map) == 0)
 	{
 		write(1, "Error\nInvalid map\n", 18);
 		on_destroy(data);
@@ -175,124 +171,30 @@ void	fill_map(t_mlx *data, char *mp)
 	close(file);
 }
 
-
-
-
-
-
-
-
-
 int	validate_map(char *map, t_mlx *mlx)
 {
-
 	if (!check_extention(map))
 		return (0);
 	if (!map)
 		return (0);
 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
+	if (!mlx->assets)
+		return (0);
 	mlx->assets->is_door_open = 0;
 	mlx->assets->player_pos = NULL;
 	return (1);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// int	validate_map(char *map, t_mlx *mlx)
-// {
-// 	int		i;
-// 	char	**mp;
-
-// 	if (!check_extention(map))
-// 		return (0);
-// 	i = 0;
-// 	mp = (char **)malloc(sizeof(char *));
-// 	if (!mp)
-// 		return (0);
-// 	mp[i] = (char *)malloc(sizeof(char));
-// 	if (!mp[i])
-// 		return (free_map(mp, i), 0);
-// 	mp[i][0] = '\0';
-// 	i = read_to_map(map, &mp);
-// 	if (i < 3)
-// 		return (free_map(mp, i), 0);
-// 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
-// 	mlx->assets->map_height = i;
-// 	mlx->assets->map_width = ft_strlen(mp[0]);
-// 	if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
-// 		return (free_map(mp, i), 0);
-// 	if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
-// 		return (free_map(mp, i), 0);
-// 	mlx->assets->map = mp;
-// 	return (1);
-// }
-
-
-
-
-
-
-// int	validate_map(char *map, t_mlx *mlx)
-// {
-// 	int		i;
-// 	char	**mp;
-
-// 	if (!check_extention(map))
-// 		return (0);
-// 	if (!map)
-// 		return (0);
-// 	i = 0;
-// 	mp = (char **)malloc(sizeof(char *));
-// 	if (!mp)
-// 		return (0);
-// 	mp[i] = (char *)malloc(sizeof(char));
-// 	if (!mp[i])
-// 		return (free_map(mp, i), 0);
-// 	// mp[i][0] = '\0';
-// 	// i = read_to_map(map, &mp);
-// 	// if (i < 3)
-// 	// 	return (free_map(mp, i), 0);
-// 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
-// 	// mlx->assets->map_height = count_lines(map);
-// 	// mlx->assets->map_width = ft_strlen(mp[0]);
-
-// 	// printf("map width: %d\n", mlx->assets->map_width);
-// 	// printf("map height: %d\n", mlx->assets->map_height);
-// 	// printf("mp %zu", ft_strlen(mp[0]));
-// 	// if (mlx->assets->map_width < 3 )
-// 	// 	return (free_map(mp, i), 0);
-// 	// if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
-// 	// 	return (free_map(mp, i), 0);
-// 	// if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
-// 	// 	return (free_map(mp, i), 0);
-// 	// mlx->assets->map = mp;
-// 	free_map(mp, i);
-// 	return (1);
-// }
-
-
-//////////////////////////////////////////////////////////////////
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_mlx data;
+	t_mlx	data;
 
 	data.mlx = mlx_init();
 	if (ac != 2)
+	{
+		write(1, "Error\nWrong path to the map\n", 28);
 		return (0);
+	}
 	if (!data.mlx)
 		return (0);
 	if (!validate_map(av[1], &data))
@@ -300,15 +202,11 @@ int main(int ac, char **av)
 	data.win = mlx_new_window(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "so_long");
 	if (!data.win)
 		return (free(data.mlx), 1);
-
 	load_img(&data);
 	fill_map(&data, av[1]);
 	render_assets(&data);
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, on_keypress, &data);
-	// Register destroy hook
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, on_destroy, &data);
-
-	// Loop over the MLX pointer
 	mlx_loop(data.mlx);
 	return (0);
 }
