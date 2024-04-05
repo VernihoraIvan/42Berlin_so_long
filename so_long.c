@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 13:08:25 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:47:46 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	check_win_condition(t_mlx *data)
 
 int	on_keypress(int keycode, t_mlx *data)
 {
-
 	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)
 	{
 		if (keycode == 119)
@@ -169,7 +168,6 @@ void	fill_map(t_mlx *data, char *mp)
 	count_coins(data->assets);
 	if (check_borders(data->assets->map, data->assets) == 0 || check_elements(data, data->assets->map) == 0)
 	{
-		free_map(data->assets->map, i);
 		write(1, "Error\nInvalid map\n", 18);
 		on_destroy(data);
 		exit(EXIT_FAILURE);

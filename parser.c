@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 13:34:04 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:46:29 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,31 @@ int	is_all_elements_present(t_mlx *mlx, char **map)
 	}
 	return (1);
 }
+
+int	is_way_out(t_mlx *mlx, char **map)
+{
+	int i = 0;
+	int j = 0;
+	int c = 0;
+
+	j = mlx->assets->player_pos->x;
+	i = mlx->assets->player_pos->y;
+	if (map[i][j + 1] == '1')
+		c++;
+	if (map[i][j - 1] == '1')
+		c++;
+	if (map[i + 1][j] == '1')
+		c++;
+	if (map[i - 1][j] == '1')
+		c++;
+	if (c == 4)
+	{
+		printf("Error\nThere is no way out\n");
+		return (0);
+	}
+	return (1);
+}
+
 int	check_elements(t_mlx *mlx, char **map)
 {
 	int	i;
@@ -57,7 +82,8 @@ int	check_elements(t_mlx *mlx, char **map)
 		}
 		i++;
 	}
-	if (c < 1 || e < 1 || p != 1 || is_all_elements_present(mlx, map) == 0)
+	printf("player pos x: %d y: %d\n", mlx->assets->player_pos->x, mlx->assets->player_pos->y);
+	if (c < 1 || e < 1 || p != 1 || is_all_elements_present(mlx, map) == 0 || is_way_out(mlx, map) == 0)
 		return (0);
 	return (1);
 }
