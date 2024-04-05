@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 16:25:21 by iverniho          #+#    #+#              #
-#    Updated: 2024/04/04 12:26:40 by iverniho         ###   ########.fr        #
+#    Updated: 2024/04/05 12:07:20 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,10 @@ NAME = so_long.a
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = so_long.c utils.c img_tools.c
+SRC = so_long.c utils.c img_tools.c parser.c
 
 LIB = libft/libft.a
-GNL := get_next_line/*c 
+GNL := get_next_line/*c
 OBJ = $(SRC:.c=.o)
 
 MLX_LIB = mlx/

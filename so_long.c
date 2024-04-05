@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/04 13:03:43 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 12:08:33 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,77 @@ void	fill_map(t_mlx *data, char *mp)
 	close(file);
 }
 
+
+
+
+
+
+
+
+
+int	validate_map(char *map, t_mlx *mlx)
+{
+
+	if (!check_extention(map))
+		return (0);
+	if (!map)
+		return (0);
+	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
+	mlx->assets->is_door_open = 0;
+	mlx->assets->player_pos = NULL;
+	return (1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int	validate_map(char *map, t_mlx *mlx)
+// {
+// 	int		i;
+// 	char	**mp;
+
+// 	if (!check_extention(map))
+// 		return (0);
+// 	i = 0;
+// 	mp = (char **)malloc(sizeof(char *));
+// 	if (!mp)
+// 		return (0);
+// 	mp[i] = (char *)malloc(sizeof(char));
+// 	if (!mp[i])
+// 		return (free_map(mp, i), 0);
+// 	mp[i][0] = '\0';
+// 	i = read_to_map(map, &mp);
+// 	if (i < 3)
+// 		return (free_map(mp, i), 0);
+// 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
+// 	mlx->assets->map_height = i;
+// 	mlx->assets->map_width = ft_strlen(mp[0]);
+// 	if (mlx->assets->map_width < 3 || !check_validity(mlx, mp))
+// 		return (free_map(mp, i), 0);
+// 	if (!check_borders(mlx, mp) || !check_elements(mlx, mp))
+// 		return (free_map(mp, i), 0);
+// 	mlx->assets->map = mp;
+// 	return (1);
+// }
+
+
+
+
+
+
 // int	validate_map(char *map, t_mlx *mlx)
 // {
 // 	int		i;
@@ -215,18 +286,7 @@ void	fill_map(t_mlx *data, char *mp)
 // 	return (1);
 // }
 
-int	validate_map(char *map, t_mlx *mlx)
-{
 
-	if (!check_extention(map))
-		return (0);
-	if (!map)
-		return (0);
-	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
-	mlx->assets->is_door_open = 0;
-	mlx->assets->player_pos = NULL;
-	return (1);
-}
 //////////////////////////////////////////////////////////////////
 int main(int ac, char **av)
 {
