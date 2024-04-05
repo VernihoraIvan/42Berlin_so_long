@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/04 12:42:39 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:07:36 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	check_win_condition(t_mlx *data);
 void	count_coins(t_relement *game);
 int		on_destroy(t_mlx *data);
 int		check_borders(char **map, t_relement *assets);
+int		check_elements(t_mlx *mlx, char **map);
+
 
 
 

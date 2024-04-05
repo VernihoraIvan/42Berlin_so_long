@@ -6,12 +6,33 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 12:07:59 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:34:04 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+int	is_all_elements_present(t_mlx *mlx, char **map)
+{
+	int i = 0;
+	int j = 0;
+
+	while(i < mlx->assets->map_height)
+	{
+		j = 0;
+		while(j < mlx->assets->map_width)
+		{
+			if (map[i][j] != 'P' && map[i][j] != 'E' && map[i][j] != 'C' && map[i][j] != '1' && map[i][j] != '0' && map[i][j] != '\n')
+			{
+				printf("Error\nNot all elements are present in the map\n");
+				return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 int	check_elements(t_mlx *mlx, char **map)
 {
 	int	i;
@@ -36,8 +57,7 @@ int	check_elements(t_mlx *mlx, char **map)
 		}
 		i++;
 	}
-	if (c < 1 || e < 1 || p != 1)
+	if (c < 1 || e < 1 || p != 1 || is_all_elements_present(mlx, map) == 0)
 		return (0);
 	return (1);
 }
-

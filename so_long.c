@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 12:08:33 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:08:25 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	fill_map(t_mlx *data, char *mp)
 	}
 	determine_player_position(data->assets);
 	count_coins(data->assets);
-	if (check_borders(data->assets->map, data->assets) == 0)
+	if (check_borders(data->assets->map, data->assets) == 0 || check_elements(data, data->assets->map) == 0)
 	{
 		free_map(data->assets->map, i);
 		write(1, "Error\nInvalid map\n", 18);
