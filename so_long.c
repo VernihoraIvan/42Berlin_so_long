@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 18:08:01 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:02:22 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,21 +160,29 @@ void	fill_map(t_mlx *data, char *mp)
 		i++;
 		data->assets->map[i] = get_next_line(file);
 	}
-	determine_player_position(data->assets);
-	count_coins(data->assets);
-	if (!data->assets->map || check_borders(data->assets->map, data->assets) == 0 \
-		|| check_elements(data, data->assets->map) == 0)
+
+	if (!data->assets->map || check_borders(data->assets->map, data->assets) == 0)
 	{
 		write(1, "Error\nInvalid map\n", 18);
 		on_destroy(data);
 		exit(EXIT_FAILURE);
 	}
+
+	if (check_elements(data, data->assets->map) == 0)
+	{
+		write(1, "Error\nInvalid map\n", 18);
+		on_destroy(data);
+		exit(EXIT_FAILURE);
+	}
+
 	if (is_valid_path(data->assets) == 1)
 	{
 		write(1, "Error\nNo valid path\n", 20);
 		on_destroy(data);
 		exit(0);
 	}
+	determine_player_position(data->assets);
+	count_coins(data->assets);
 	close(file);
 }
 
@@ -217,7 +225,6 @@ int	main(int ac, char **av)
 	else
 	{
 		write(1, "Error\nWrong path to the map\n", 28);
-
 	}
 	return (0);
 }

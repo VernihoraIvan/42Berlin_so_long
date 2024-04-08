@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 16:21:20 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:02:53 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,6 @@ int	is_present(t_mlx *mlx, char **map)
 	return (1);
 }
 
-int	is_way_out(t_mlx *mlx, char **map)
-{
-	int	i;
-	int	j;
-	int	c;
-
-	c = 0;
-	j = mlx->assets->player_pos->x;
-	i = mlx->assets->player_pos->y;
-	if (map[i][j + 1] == '1')
-		c++;
-	if (map[i][j - 1] == '1')
-		c++;
-	if (map[i + 1][j] == '1')
-		c++;
-	if (map[i - 1][j] == '1')
-		c++;
-	if (c == 4)
-	{
-		write(1, "Error\nThere is no way out\n", 26);
-		return (0);
-	}
-	if (is_present(mlx, map) == 0)
-		return (0);
-	return (1);
-}
-
 int	check_elements(t_mlx *mlx, char **map)
 {
 	int	i;
@@ -88,7 +61,7 @@ int	check_elements(t_mlx *mlx, char **map)
 		}
 		i++;
 	}
-	if (c < 1 || e < 1 || p != 1 || is_way_out(mlx, map) == 0)
+	if (c < 1 || e != 1 || p != 1 || is_present(mlx, map) == 0)
 		return (0);
 	return (1);
 }
