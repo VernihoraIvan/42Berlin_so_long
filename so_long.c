@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 15:27:02 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:36:33 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	on_keypress(int keycode, t_mlx *data)
 	}
 	if (keycode == 65307)
 		on_destroy(data);
+	printf("Moves count: %d\n", data->assets->moves_count);
 	check_win_condition(data);
 	determine_player_position(data->assets);
 	render_assets(data);
@@ -165,6 +166,12 @@ void	fill_map(t_mlx *data, char *mp)
 		|| check_elements(data, data->assets->map) == 0)
 	{
 		write(1, "Error\nInvalid map\n", 18);
+		on_destroy(data);
+		exit(EXIT_FAILURE);
+	}
+	if (is_valid_path(data->assets) == 1)
+	{
+		write(1, "Error\nNo valid path\n", 20);
 		on_destroy(data);
 		exit(EXIT_FAILURE);
 	}

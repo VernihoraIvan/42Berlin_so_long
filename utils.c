@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 15:21:28 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:32:01 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,19 @@ void	free_map(char **map, int i)
 	while (j++ < i)
 		free(map[j]);
 	free(map);
+}
+
+void	free_passed(int **passed, t_relement *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->map_height)
+	{
+		free(passed[i]);
+		i++;
+	}
+	free(passed);
 }
 
 int	check_borders(char **map, t_relement *assets)

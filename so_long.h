@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 15:20:14 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:32:01 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct t_relement
 	int				map_height;
 	int				map_width;
 	int				is_door_open;
+	int				exit_row;
+	int				exit_col;
 	char			**map;
 	t_player_pos	*player_pos;
 
@@ -82,4 +84,6 @@ void	count_coins(t_relement *game);
 int		on_destroy(t_mlx *data);
 int		check_borders(char **map, t_relement *assets);
 int		check_elements(t_mlx *mlx, char **map);
+int		is_valid_path(t_relement *game);
+void	free_passed(int **passed, t_relement *game);
 #endif
