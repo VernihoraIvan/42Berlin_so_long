@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 15:32:01 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:09:57 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,24 @@ int	count_lines(char *map)
 
 int	check_extention(char *map)
 {
-	int		len;
-	int		i;
-	char	*ber;
+	int	i;
 
-	i = 3;
-	ber = "ber";
-	len = ft_strlen(map);
-	while (len >= 0 && i >= 0 && map[len] == ber[i])
+	i = 0;
+	while (map[i])
 	{
-		len--;
-		i--;
+		if (map[i] == '.')
+		{
+			if (!(map[i + 1] == 'b' && map[i + 2] == 'e' \
+			&& map[i + 3] == 'r' && !(map[i + 4])))
+			{
+				write(1, "Error\nWrong map format\n", 23);
+				return (0);
+			}
+			else
+				return (1);
+		}
+		i++;
 	}
-	if (i == -1)
-		return (1);
 	return (0);
 }
 

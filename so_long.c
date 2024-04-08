@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 15:36:33 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:08:01 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	fill_map(t_mlx *data, char *mp)
 	{
 		write(1, "Error\nNo valid path\n", 20);
 		on_destroy(data);
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 	close(file);
 }
@@ -196,16 +196,14 @@ int	main(int ac, char **av)
 {
 	t_mlx	data;
 
-	data.mlx = mlx_init();
-	if (ac != 2)
+	if (ac == 2)
 	{
-		write(1, "Error\nWrong path to the map\n", 28);
-		return (0);
-	}
-	if (!data.mlx)
-		return (0);
 	if (!validate_map(av[1], &data))
 		return (0);
+	data.mlx = mlx_init();
+	if (!data.mlx)
+		return (0);
+
 	data.win = mlx_new_window(data.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "so_long");
 	if (!data.win)
 		return (free(data.mlx), 1);
@@ -215,5 +213,11 @@ int	main(int ac, char **av)
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, on_keypress, &data);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, on_destroy, &data);
 	mlx_loop(data.mlx);
+	}
+	else
+	{
+		write(1, "Error\nWrong path to the map\n", 28);
+
+	}
 	return (0);
 }
