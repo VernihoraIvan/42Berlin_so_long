@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 20:02:53 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:07:30 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,29 @@ int	is_present(t_mlx *mlx, char **map)
 	return (1);
 }
 
+static int	is_map_rectangular(char **map)
+{
+	size_t	first_line_row;
+	size_t	i;
+	size_t	len;
+
+	if (!map[0])
+		return (0);
+	first_line_row = ft_strlen(map[0]);
+	i = 1;
+	while (map[i])
+	{
+		len = ft_strlen(map[i]);
+		if ((len != first_line_row && map[i + 1])
+			|| (len != first_line_row - 1 && !map[i + 1]))
+			return (0);
+		map[i][first_line_row - 1] = 0;
+		i++;
+	}
+	map[0][first_line_row - 1] = 0;
+	return (1);
+}
+
 int	check_elements(t_mlx *mlx, char **map)
 {
 	int	i;
@@ -61,7 +84,8 @@ int	check_elements(t_mlx *mlx, char **map)
 		}
 		i++;
 	}
-	if (c < 1 || e != 1 || p != 1 || is_present(mlx, map) == 0)
+	if (c < 1 || e != 1 || p != 1 || is_present(mlx, map) == 0 || !is_map_rectangular(map))
 		return (0);
 	return (1);
 }
+
