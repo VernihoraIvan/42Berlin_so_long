@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:07 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 16:03:15 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:37:59 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	determine_player_position(t_relement *game)
 				if (game->player_pos)
 					free(game->player_pos);
 				game->player_pos = malloc(sizeof(t_player_pos));
+				if (!game->player_pos)
+					return (print_error(9));
 				if (!game->player_pos)
 					return ;
 				game->player_pos->x = j;

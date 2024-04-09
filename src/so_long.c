@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 16:30:43 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:40:02 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	validate_map(char *map, t_mlx *mlx)
 		return (0);
 	mlx->assets = (t_relement *)malloc(sizeof(t_relement));
 	if (!mlx->assets)
-		return (0);
+		return (print_error(9), 0);
 	mlx->assets->is_door_open = 0;
 	mlx->assets->player_pos = NULL;
 	return (1);
