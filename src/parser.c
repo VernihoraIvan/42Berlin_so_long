@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 16:16:28 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:01:00 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_win_condition(t_mlx *data)
 		return ;
 }
 
-int	is_present(t_mlx *mlx, char **map)
+int	is_p(t_mlx *mlx, char **map)
 {
 	int	i;
 	int	j;
@@ -45,7 +45,7 @@ int	is_present(t_mlx *mlx, char **map)
 	return (1);
 }
 
-int	is_map_rectangular(char **map)
+int	is_req(char **map)
 {
 	size_t	first_line_row;
 	size_t	i;
@@ -66,15 +66,13 @@ int	is_map_rectangular(char **map)
 	return (1);
 }
 
-int	check_elements(t_mlx *mlx, char **map)
+int	check_elements(t_mlx *mlx, char **map, int c, int e)
 {
 	int	i;
 	int	j;
-	int	c;
-	int	e;
 	int	p;
 
-	i = ((c = 0, e = 0, p = 0), -1);
+	i = ((p = 0), -1);
 	while (++i < mlx->assets->map_height)
 	{
 		j = -1;
@@ -88,10 +86,12 @@ int	check_elements(t_mlx *mlx, char **map)
 				p++;
 		}
 	}
-	if (c > 1 && e == 1 && p == 1 && is_present(mlx, map) != 0 \
-		&& is_map_rectangular(map))
+	if (c > 1 && e == 1 && p == 1 && is_p(mlx, map) != 0 && is_req(map))
 		return (1);
-	print_error(4);
+	if (c < 1 || e != 1 || p != 1)
+		print_error (4);
+	else
+		print_error(6);
 	return (on_destroy(mlx), 0);
 }
 
@@ -109,7 +109,7 @@ void	print_error(int type)
 	else if (type == 5)
 		ft_printf("The map must contain no empty lines.\n");
 	else if (type == 6)
-		ft_printf("The map must contain exactly one start.\n");
+		ft_printf("The contentent of the map is incorrect.\n");
 	else if (type == 7)
 		ft_printf("Wrong map format\n");
 	else if (type == 8)

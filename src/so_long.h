@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 16:02:59 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:57:15 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	check_win_condition(t_mlx *data);
 void	count_coins(t_relement *game);
 int		on_destroy(t_mlx *data);
 int		check_borders(char **map, t_relement *assets);
-int		check_elements(t_mlx *mlx, char **map);
+int		check_elements(t_mlx *mlx, char **map, int c, int e);
 int		is_valid_path(t_mlx *data);
 void	free_passed(int **passed, t_relement *game);
 void	print_error(int type);

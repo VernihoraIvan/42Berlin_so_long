@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 16:40:02 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 20:01:41 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ void	fill_map(t_mlx *data, char *mp)
 		data->assets->map[i] = get_next_line(file);
 	if (!data->assets->map || !check_borders(data->assets->map, data->assets))
 	{
-		print_error(5);
+		print_error(6);
 		on_destroy(data);
 		exit(EXIT_FAILURE);
 	}
-	if (!check_elements(data, data->assets->map) || !is_valid_path(data) || \
-		!check_borders(data->assets->map, data->assets))
-		exit(EXIT_FAILURE);
+	if (!check_elements(data, data->assets->map, 0, 0) || !is_valid_path(data) \
+		|| !check_borders(data->assets->map, data->assets))
+		print_error(4);
 	close(file);
 }
 
