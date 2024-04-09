@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 13:30:59 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:30:43 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	on_keypress(int keycode, t_mlx *data)
 	}
 	if (keycode == 65307)
 		on_destroy(data);
-	printf("Moves count: %d\n", data->assets->moves_count);
+	ft_printf("Moves count: %d\n", data->assets->moves_count);
 	check_win_condition(data);
 	determine_player_position(data->assets);
 	render_assets(data);
@@ -71,23 +71,24 @@ void	fill_map(t_mlx *data, char *mp)
 
 	lines = count_lines(mp);
 	i = 0;
-	file = open(mp, O_RDWR);
+	file = open(mp, O_RDONLY);
 	data->assets->map = malloc(sizeof(char *) * (size_t)(lines + 1));
 	data->assets->map[0] = get_next_line(file);
+	if (!data->assets->map[0])
+		fail(data);
 	data->assets->map_width = ft_strlen(data->assets->map[0]);
 	data->assets->map_height = lines;
 	while (i++ < data->assets->map_height)
 		data->assets->map[i] = get_next_line(file);
-	if (!data->assets->map || check_borders(data->assets->map, \
-		data->assets) == 0)
+	if (!data->assets->map || !check_borders(data->assets->map, data->assets))
 	{
+		print_error(5);
 		on_destroy(data);
 		exit(EXIT_FAILURE);
 	}
-	if (check_elements(data, data->assets->map) == 0)
+	if (!check_elements(data, data->assets->map) || !is_valid_path(data) || \
+		!check_borders(data->assets->map, data->assets))
 		exit(EXIT_FAILURE);
-	if (is_valid_path(data) == 0)
-		exit(0);
 	close(file);
 }
 

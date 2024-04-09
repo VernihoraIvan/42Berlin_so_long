@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:29:07 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 13:32:14 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:03:15 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,13 @@ int	is_open(t_mlx *mlx)
 	if (mlx->assets->is_door_open == 0)
 		return (0);
 	return (1);
+}
+
+void	fail(t_mlx *data)
+{
+	data->assets->map_width = 0;
+	data->assets->map_height = 0;
+	print_error(10);
+	on_destroy(data);
+	exit(EXIT_FAILURE);
 }

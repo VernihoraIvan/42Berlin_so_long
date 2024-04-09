@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 12:27:34 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:28:51 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	check_borders(char **map, t_relement *assets)
 		if (map[i][0] == '\n' && map[i--][j++] != '1')
 			return (print_error(5), 0);
 		if (map[i][j] != map[i][assets->map_width - 2])
-			return (0);
+			return (print_error(2), 0);
 		i++;
 	}
 	assets->moves_count = 0;

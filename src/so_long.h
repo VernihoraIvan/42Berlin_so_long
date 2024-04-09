@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 13:30:50 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:02:59 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ int		is_valid_path(t_mlx *data);
 void	free_passed(int **passed, t_relement *game);
 void	print_error(int type);
 int		is_open(t_mlx *mlx);
+void	fail(t_mlx *data);
 #endif

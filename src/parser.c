@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 13:28:51 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:16:28 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_present(t_mlx *mlx, char **map)
 	return (1);
 }
 
-static int	is_map_rectangular(char **map)
+int	is_map_rectangular(char **map)
 {
 	size_t	first_line_row;
 	size_t	i;
