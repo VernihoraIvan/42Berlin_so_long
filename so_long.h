@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 15:32:01 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:14:24 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "libft/libft.h"
 # include "mlx/mlx.h"
 # include "get_next_line/get_next_line.h"
+# include "printf/ft_printf.h"
 
 typedef struct t_img
 {
@@ -86,4 +87,5 @@ int		check_borders(char **map, t_relement *assets);
 int		check_elements(t_mlx *mlx, char **map);
 int		is_valid_path(t_relement *game);
 void	free_passed(int **passed, t_relement *game);
+void	print_error(int type);
 #endif

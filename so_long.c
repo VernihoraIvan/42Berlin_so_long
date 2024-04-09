@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 20:02:22 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:06:50 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,29 +155,17 @@ void	fill_map(t_mlx *data, char *mp)
 	data->assets->map[0] = get_next_line(file);
 	data->assets->map_width = ft_strlen(data->assets->map[0]);
 	data->assets->map_height = lines;
-	while (i < data->assets->map_height)
-	{
-		i++;
+	while (i++ < data->assets->map_height)
 		data->assets->map[i] = get_next_line(file);
-	}
-
 	if (!data->assets->map || check_borders(data->assets->map, data->assets) == 0)
 	{
-		write(1, "Error\nInvalid map\n", 18);
 		on_destroy(data);
 		exit(EXIT_FAILURE);
 	}
-
 	if (check_elements(data, data->assets->map) == 0)
-	{
-		write(1, "Error\nInvalid map\n", 18);
-		on_destroy(data);
 		exit(EXIT_FAILURE);
-	}
-
 	if (is_valid_path(data->assets) == 1)
 	{
-		write(1, "Error\nNo valid path\n", 20);
 		on_destroy(data);
 		exit(0);
 	}

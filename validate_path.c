@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:50:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/08 15:32:01 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:24:36 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ int	is_valid_path(t_relement *game)
 	i = passed[row][col] && passed[game->exit_row][game->exit_col];
 	free_passed(passed, game);
 	if (!i)
-		return (1);
+		return (print_error(8), 1);
 	return (0);
 }
