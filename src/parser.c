@@ -6,11 +6,19 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 12:06:26 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:28:51 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	check_win_condition(t_mlx *data)
+{
+	if (data->assets->coins == 0)
+		data->assets->is_door_open = 1;
+	else
+		return ;
+}
 
 int	is_present(t_mlx *mlx, char **map)
 {
@@ -103,7 +111,7 @@ void	print_error(int type)
 	else if (type == 6)
 		ft_printf("The map must contain exactly one start.\n");
 	else if (type == 7)
-		ft_printf("The map must have \".ber\" extension.\n");
+		ft_printf("Wrong map format\n");
 	else if (type == 8)
 		ft_printf("The map must have a valid path.\n");
 	else if (type == 9)
@@ -111,5 +119,5 @@ void	print_error(int type)
 	else if (type == 10)
 		ft_printf("Empty file\n");
 	else if (type == 11)
-		ft_printf("Invalid argv\n");
+		ft_printf("Wrong path to the map\n");
 }

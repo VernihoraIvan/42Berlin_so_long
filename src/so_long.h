@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 11:14:24 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:30:50 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include <fcntl.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include "get_next_line/get_next_line.h"
-# include "printf/ft_printf.h"
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
+# include "../get_next_line/get_next_line.h"
+# include "../printf/ft_printf.h"
 
 typedef struct t_img
 {
@@ -51,12 +51,12 @@ typedef struct t_relement
 	t_img			door_closed;
 	t_img			floor;
 	int				moves_count;
-	int				coin_count;
+	int				coins;
 	int				map_height;
 	int				map_width;
 	int				is_door_open;
-	int				exit_row;
-	int				exit_col;
+	int				e_r;
+	int				e_c;
 	char			**map;
 	t_player_pos	*player_pos;
 
@@ -85,7 +85,8 @@ void	count_coins(t_relement *game);
 int		on_destroy(t_mlx *data);
 int		check_borders(char **map, t_relement *assets);
 int		check_elements(t_mlx *mlx, char **map);
-int		is_valid_path(t_relement *game);
+int		is_valid_path(t_mlx *data);
 void	free_passed(int **passed, t_relement *game);
 void	print_error(int type);
+int		is_open(t_mlx *mlx);
 #endif

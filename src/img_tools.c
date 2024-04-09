@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:36:00 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 15:13:23 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:20:18 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_img	add_img(t_mlx data, char *path)
 
 int	load_img(t_mlx *mlx)
 {
-	mlx->assets->coin_count = 0;
+	mlx->assets->coins = 0;
 	mlx->assets->moves_count = 0;
 	mlx->assets->floor = add_img(*mlx, "assets/bg.xpm");
 	mlx->assets->wall = add_img(*mlx, "assets/mountain.xpm");
@@ -41,6 +41,16 @@ void	mlx_render_img(t_mlx *mlx, t_img img, int x, int y)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, x, y);
 }
 
+void	print_door(t_mlx *mlx, int i, int j)
+{
+	if (!mlx->assets->is_door_open)
+		mlx_render_img(mlx, mlx->assets->door_closed, \
+			j * WIDTH, i * HEIGHT);
+	else if (mlx->assets->is_door_open)
+		mlx_render_img(mlx, mlx->assets->door_open, \
+			j * WIDTH, i * HEIGHT);
+}
+
 int	render_assets(t_mlx *mlx)
 {
 	int		i;
@@ -49,8 +59,8 @@ int	render_assets(t_mlx *mlx)
 	i = -1;
 	while (++i < mlx->assets->map_height)
 	{
-		j = 0;
-		while (j < mlx->assets->map_width)
+		j = -1;
+		while (++j < mlx->assets->map_width)
 		{
 			if (mlx->assets->map[i][j] == '1')
 				mlx_render_img(mlx, mlx->assets->wall, j * WIDTH, i * HEIGHT);
@@ -61,19 +71,7 @@ int	render_assets(t_mlx *mlx)
 			else if (mlx->assets->map[i][j] == '0')
 				mlx_render_img(mlx, mlx->assets->floor, j * WIDTH, i * HEIGHT);
 			else if (mlx->assets->map[i][j] == 'E')
-			{
-				if (!mlx->assets->is_door_open)
-				{
-					mlx_render_img(mlx, mlx->assets->door_closed, \
-						j * WIDTH, i * HEIGHT);
-				}
-				else if (mlx->assets->is_door_open)
-				{
-					mlx_render_img(mlx, mlx->assets->door_open, \
-						j * WIDTH, i * HEIGHT);
-				}
-			}
-			j++;
+				print_door(mlx, i, j);
 		}
 	}
 	return (0);

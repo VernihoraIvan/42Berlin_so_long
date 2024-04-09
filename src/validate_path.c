@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:50:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 11:24:36 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:19:45 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	find_escape_position(t_relement *game)
 		{
 			if (game->map[i][j] == 'E')
 			{
-				game->exit_row = i;
-				game->exit_col = j;
+				game->e_r = i;
+				game->e_c = j;
 			}
 			j++;
 		}
@@ -67,31 +67,31 @@ void	find_escape_position(t_relement *game)
 	}
 }
 
-int	is_valid_path(t_relement *game)
+int	is_valid_path(t_mlx *data)
 {
 	int	i;
 	int	row;
 	int	col;
 	int	**passed;
 
-	passed = ft_calloc(game->map_height, sizeof(int *));
-	i = 0;
-	while (i < game->map_height)
-	{
-		passed[i] = ft_calloc(game->map_width, sizeof(int *));
-		i++;
-	}
-	i = 0;
-	while (game->map[i])
-	{
-		find_player_pos(game, i, &col, &row);
-		i++;
-	}
-	find_escape_position(game);
-	floodfill(game, row, col, passed);
-	i = passed[row][col] && passed[game->exit_row][game->exit_col];
-	free_passed(passed, game);
+	passed = ft_calloc(data->assets->map_height, sizeof(int *));
+	i = -1;
+	while (++i < data->assets->map_height)
+		passed[i] = ft_calloc(data->assets->map_width, sizeof(int *));
+	i = -1;
+	while (data->assets->map[++i])
+		find_player_pos(data->assets, i, &col, &row);
+	find_escape_position(data->assets);
+	floodfill(data->assets, row, col, passed);
+	i = passed[row][col] && passed[data->assets->e_r][data->assets->e_c];
+	free_passed(passed, data->assets);
 	if (!i)
-		return (print_error(8), 1);
-	return (0);
+	{
+		print_error(8);
+		on_destroy(data);
+		return (0);
+	}
+	determine_player_position(data->assets);
+	count_coins(data->assets);
+	return (1);
 }

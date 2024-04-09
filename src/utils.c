@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 11:22:35 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:27:34 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ int	check_extention(char *map)
 		{
 			if (!(map[i + 1] == 'b' && map[i + 2] == 'e' \
 			&& map[i + 3] == 'r' && !(map[i + 4])))
-			{
-				write(1, "Error\nWrong map format\n", 23);
-				return (0);
-			}
+				return (print_error(7), 0);
 			else
 				return (1);
 		}
@@ -89,14 +86,11 @@ int	check_borders(char **map, t_relement *assets)
 	while (i < assets->map_height)
 	{
 		if (map[i][0] == '\n' && map[i--][j++] != '1')
-		{
-			// write(1, "Error\nEmpty line\n", 23);
-			print_error(5);
-			return (0);
-		}
+			return (print_error(5), 0);
 		if (map[i][j] != map[i][assets->map_width - 2])
 			return (0);
 		i++;
 	}
+	assets->moves_count = 0;
 	return (1);
 }
