@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 19:57:15 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:39:39 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,5 @@ void	free_passed(int **passed, t_relement *game);
 void	print_error(int type);
 int		is_open(t_mlx *mlx);
 void	fail(t_mlx *data);
+int		check_map_len(char **map, t_relement *assets);
 #endif

@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 19:23:16 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:49:42 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int	check_borders(char **map, t_relement *assets)
 
 	i = 0;
 	j = 0;
-	if (ft_strncmp(map[0], map[assets->map_height - 1], assets->map_width) != 0)
+	if (ft_strncmp(map[0], map[assets->map_height - 1], assets->map_width) != 0 || \
+		check_map_len(map, assets) == 0)
 		return (0);
 	while (i < assets->map_height)
 	{
