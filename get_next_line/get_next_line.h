@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 15:40:35 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/04 12:51:23 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:51:47 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	adjust_list(t_list **list);
 char	*get_next_line(int fd);
 void	final_clean(t_list **list, t_list *clean_node, char *buf);
 void	create_list(t_list **list, int fd);
-
 #endif
