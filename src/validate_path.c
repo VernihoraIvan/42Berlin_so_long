@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:50:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 16:06:46 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:03:53 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	floodfill(t_relement *game, int row, int col, int **passed)
 {
 	if (!is_move_valid(game, passed, row, col) || passed[row][col])
 		return ;
+	if (game->map[row][col] == 'C')
+		game->count_coins++;
 	passed[row][col] = 1;
 	floodfill(game, row - 1, col, passed);
 	floodfill(game, row + 1, col, passed);
@@ -82,16 +84,16 @@ int	is_valid_path(t_mlx *data)
 	while (data->assets->map[++i])
 		find_player_pos(data->assets, i, &col, &row);
 	find_escape_position(data->assets);
+	data->assets->count_coins = 0;
 	floodfill(data->assets, row, col, passed);
 	i = passed[row][col] && passed[data->assets->e_r][data->assets->e_c];
+	count_coins(data->assets);
 	free_passed(passed, data->assets);
-	if (!i)
+	if (!passed || !i || data->assets->count_coins != data->assets->coins)
 	{
 		print_error(8);
 		on_destroy(data);
 		return (0);
 	}
-	determine_player_position(data->assets);
-	count_coins(data->assets);
 	return (1);
 }

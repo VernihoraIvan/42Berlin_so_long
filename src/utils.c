@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/10 14:49:42 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:03:01 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	free_passed(int **passed, t_relement *game)
 	int	i;
 
 	i = 0;
+	determine_player_position(game);
 	while (i < game->map_height)
 	{
 		free(passed[i]);
@@ -81,8 +82,8 @@ int	check_borders(char **map, t_relement *assets)
 
 	i = 0;
 	j = 0;
-	if (ft_strncmp(map[0], map[assets->map_height - 1], assets->map_width) != 0 || \
-		check_map_len(map, assets) == 0)
+	if (ft_strncmp(map[0], map[assets->map_height - 1], assets->map_width) \
+		!= 0 || check_map_len(map, assets) == 0)
 		return (0);
 	while (i < assets->map_height)
 	{

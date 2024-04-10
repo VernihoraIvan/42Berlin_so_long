@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/10 14:39:39 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:09:30 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct t_relement
 	t_img			floor;
 	int				moves_count;
 	int				coins;
+	int				count_coins;
 	int				map_height;
 	int				map_width;
 	int				is_door_open;
@@ -91,4 +92,5 @@ void	print_error(int type);
 int		is_open(t_mlx *mlx);
 void	fail(t_mlx *data);
 int		check_map_len(char **map, t_relement *assets);
+int		is_move_valid(t_relement *game, int **passed, int row, int col);
 #endif

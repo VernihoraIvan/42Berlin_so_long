@@ -6,52 +6,38 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/09 20:01:41 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:00:48 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	run_player(t_mlx *mlx, int x, int y)
+int	check_map_len(char **map, t_relement *assets)
 {
-	int	i;
-	int	j;
+	int	len;
+	int	height;
 
-	i = -1;
-	while (++i < mlx->assets->map_height)
-	{
-		j = -1;
-		while (++j < mlx->assets->map_width)
-		{
-			if (mlx->assets->map[i][j] == 'P' && mlx->assets->moves_count++)
-			{
-				if ((mlx->assets->map[i + y][j + x] == '1') || \
-					(!is_open(mlx) && mlx->assets->map[i + y][j + x] == 'E'))
-					return ;
-				if (mlx->assets->map[i + y][j + x] == 'C' \
-					&& mlx->assets->coins-- != -1)
-					mlx->assets->map[i + y][j + x] = '0';
-				if (is_open(mlx) && mlx->assets->map[i + y][j + x] == 'E')
-					on_destroy(mlx);
-				mlx->assets->map[i + y][j + x] = 'P';
-				mlx->assets->map[i][j] = '0';
-				return ;
-			}
-		}
-	}
+	len = ft_strlen(map[0]) - 1;
+	height = assets->map_height;
+	if (len > SCREEN_WIDTH / WIDTH || height > SCREEN_HEIGHT / HEIGHT)
+		return (print_error(5), 0);
+	return (1);
 }
 
 int	on_keypress(int keycode, t_mlx *data)
 {
-	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100)
+	printf("keycode: %d\n", keycode);
+	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100 \
+		|| keycode == 65362 || keycode == 65361 || keycode == 65364 \
+		|| keycode == 65363)
 	{
-		if (keycode == 119)
+		if (keycode == 119 || keycode == 65362)
 			run_player(data, 0, -1);
-		else if (keycode == 97)
+		else if (keycode == 97 || keycode == 65361)
 			run_player(data, -1, 0);
-		else if (keycode == 115)
+		else if (keycode == 115 || keycode == 65364)
 			run_player(data, 0, 1);
-		else if (keycode == 100)
+		else if (keycode == 100 || keycode == 65363)
 			run_player(data, 1, 0);
 	}
 	if (keycode == 65307)
