@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 16:25:21 by iverniho          #+#    #+#              #
-#    Updated: 2024/04/15 13:20:31 by iverniho         ###   ########.fr        #
+#    Updated: 2024/04/15 13:41:10 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,13 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJ)
+	rm -rf $(LIBFT)/*.o
+	rm -rf printf/*.o
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(LIBFT)/libft.a
+	rm -f printf/libftprintf.a
 
 re: fclean all
 

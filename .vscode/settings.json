@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "compare": "c",
-    "type_traits": "c"
+    "type_traits": "c",
+    "get_next_line.h": "c"
   }
 }

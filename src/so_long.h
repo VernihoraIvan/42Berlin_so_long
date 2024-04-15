@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:23 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/15 13:22:11 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:37:29 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
+# include "mlx.h"
 # include "../get_next_line/get_next_line.h"
 # include "../printf/ft_printf.h"
 

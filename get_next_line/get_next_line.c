@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 15:40:19 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/05 14:43:48 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:44:48 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,3 @@ char	*get_next_line(int fd)
 	adjust_list(&list);
 	return (next_line);
 }
-
