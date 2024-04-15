@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:18:38 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/10 16:03:01 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:26:36 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	check_extention(char *map)
 	int	i;
 
 	i = 0;
+	if (ft_strchr(map, '.') == 0)
+		return (print_error(11), 0);
 	while (map[i])
 	{
 		if (map[i] == '.')
