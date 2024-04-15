@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:33:25 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/10 17:00:48 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:28:12 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	check_map_len(char **map, t_relement *assets)
 
 int	on_keypress(int keycode, t_mlx *data)
 {
-	printf("keycode: %d\n", keycode);
 	if (keycode == 119 || keycode == 97 || keycode == 115 || keycode == 100 \
 		|| keycode == 65362 || keycode == 65361 || keycode == 65364 \
 		|| keycode == 65363)

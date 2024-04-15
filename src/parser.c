@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 12:06:32 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/10 13:15:19 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:29:20 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	print_error(int type)
 	else if (type == 4)
 		ft_printf("The map must contain - 1 E, 1 P and some C.\n");
 	else if (type == 5)
-		ft_printf("The map must be smaller than window.\n");
+		ft_printf("The map is too big.\n");
 	else if (type == 6)
 		ft_printf("The contentent of the map is incorrect.\n");
 	else if (type == 7)
