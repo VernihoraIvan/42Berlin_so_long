@@ -37,8 +37,9 @@ If you're not using a MacOS computer from 42, you'll need to install the librari
 git clone https://github.com/42Paris/minilibx-linux.git
 cd minilibx-linux/
 make
+```
+And then run the game by typing:
 
-And then run the game by typing: 
 ```c
   ./so_long map.ber
 ```
